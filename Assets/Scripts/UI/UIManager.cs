@@ -4,7 +4,6 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
-    public Slider healthBar;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI levelText;
 
@@ -13,7 +12,6 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         UpdateScore(0);
-        UpdateHealth(100);
         UpdateLevel(1);
     }
 
@@ -21,11 +19,6 @@ public class UIManager : MonoBehaviour
     {
         score += amount;
         scoreText.text = "Score: " + score;
-    }
-
-    public void UpdateHealth(int value)
-    {
-        healthBar.value = value;
     }
 
     public void UpdateLevel(int level)
