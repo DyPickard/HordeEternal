@@ -20,4 +20,14 @@ public class GameManager : MonoBehaviour
         currentHealth -= damage;
         healthBar.SetHealth(currentHealth);
     }
+
+    public void AddScore(int amount)
+    {
+        uiManager.UpdateScore(amount);
+    }
+
+    public void LevelUp(int level)
+    {
+        uiManager.UpdateLevel(level);
+    }
 }
