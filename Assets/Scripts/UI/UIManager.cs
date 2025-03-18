@@ -23,7 +23,7 @@ public class UIManager : MonoBehaviour
         scoreText.text = "Score: " + score;
     }
 
-    public void UpdateHealth(float value)
+    public void UpdateHealth(int value)
     {
         healthBar.value = value;
     }
