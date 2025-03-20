@@ -4,6 +4,9 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
+    public GameObject gameUI;
+    public GameObject mainMenuPanel;
+
     [Header("Lives")]
     public GameObject heartPrefab;
     public Transform livesPanel;
@@ -26,6 +29,18 @@ public class UIManager : MonoBehaviour
         ClearPowerUps();
     }
 
+    public void ShowGameUI()
+    {
+        gameUI.SetActive(true);
+        mainMenuPanel.SetActive(false);
+    }
+
+    public void ShowMainMenu()
+    {
+        gameUI.SetActive(false);
+        mainMenuPanel.SetActive(true);
+    }
+
     void InitLives(int lives)
     {
         hearts = new GameObject[lives];
@@ -46,7 +61,11 @@ public class UIManager : MonoBehaviour
     public void UpdateScore(int amount)
     {
         score += amount;
-        scoreText.text = "Score: " + score;
+        TextMeshProUGUI scoreText = gameUI.GetComponentInChildren<TextMeshProUGUI>();
+        if (scoreText != null)
+        {
+            scoreText.text = "Score: " + score;
+        }
     }
 
     public void SetWeaponPowerUp(Sprite weaponSprite)
