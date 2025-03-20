@@ -3,11 +3,23 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public UIManager uiManager;
+    private const int maxLives = 6;
     private int currentLives = 3;
 
     void Start()
     {
         uiManager.UpdateLives(currentLives);
+        uiManager.UpdateScore(0);
+        uiManager.ClearPowerUps();
+    }
+
+    void GetLife()
+    {
+        if (currentLives < maxLives)
+        {
+            currentLives++;
+            uiManager.UpdateLives(currentLives);
+        }
     }
 
     void TakeDamage()
