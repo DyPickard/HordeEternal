@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,18 +13,18 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    private void Start()
+    private void OnMove(InputValue value)
     {
-        // Get reference to the Move action from Project Settings
-        var moveAction = InputActionReference.Create(InputSystem.ListEnabledActions()[0]);
-
-        // Assign event listeners
-        moveAction.action.performed += ctx => movementInput = ctx.ReadValue<Vector2>();
-        moveAction.action.canceled += ctx => movementInput = Vector2.zero;
+        // debug message
+        Debug.Log("OnMove called");
+        movementInput = value.Get<Vector2>();
     }
 
     private void FixedUpdate()
     {
-        rb.linearVelocity = movementInput * speed;
+        Vector2 movement = movementInput * speed;
+        rb.linearVelocity = movement;
     }
 }
+
+
