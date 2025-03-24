@@ -44,6 +44,10 @@ public class Enemy : MonoBehaviour
             other.GetComponent<PlayerLevel>().IncreaseExp(expValue); 
             Debug.Log("Player gained " + expValue + " exp");
         }
+        if (other.CompareTag("Bullet"))
+        {
+            // take damage
+        }
     }
 
 }
