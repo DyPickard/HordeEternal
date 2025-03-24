@@ -3,7 +3,9 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 3f;
-    private Transform player;
+    [SerializeField] private int expValue = 1;
+    private GameObject player;
+    private Transform playerTransform;
 
     void Start()
     {
@@ -11,7 +13,8 @@ public class Enemy : MonoBehaviour
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
         if (playerObj != null)
         {
-            player = playerObj.transform;
+            player = playerObj;
+            playerTransform = playerObj.transform;
         }
     }
 
@@ -20,7 +23,7 @@ public class Enemy : MonoBehaviour
         if (player == null) return;
 
         // Move toward player
-        Vector3 direction = (player.position - transform.position).normalized;
+        Vector3 direction = (playerTransform.position - transform.position).normalized;
         transform.position += direction * moveSpeed * Time.deltaTime;
 
         // rotate to face player
@@ -32,11 +35,14 @@ public class Enemy : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Triggered with: " + other.name);
+        Debug.Log("Enemy Triggered with: " + other.name);
         if (other.CompareTag("Player"))
         {
             // Damage logic here
             Destroy(gameObject);
+            // call IncreaseExp() on PlayerLevel script
+            other.GetComponent<PlayerLevel>().IncreaseExp(expValue); 
+            Debug.Log("Player gained " + expValue + " exp");
         }
     }
 
