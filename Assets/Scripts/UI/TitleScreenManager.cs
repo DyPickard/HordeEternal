@@ -1,15 +1,36 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class TitleScreenManager : MonoBehaviour
 {
-    public void StartGame()
+    private SceneTransition sceneTransition;
+
+    private void Start()
     {
-        SceneManager.LoadScene("MainLevel");
+        GameObject uiManager = GameObject.FindWithTag("UIManager");
+
+        if (uiManager != null)
+        {
+            sceneTransition = uiManager.GetComponent<SceneTransition>();
+        }
+        else
+        {
+            Debug.LogError("UIManager/SceneTransition not found!");
+        }
     }
 
-    // Update is called once per frame
-    public void ExitGame()
+    public void StartGame()
+    {
+        if (sceneTransition != null)
+        {
+            sceneTransition.FadeToScene("MainLevel");
+        }
+        else
+        {
+            Debug.LogError("SceneTransition not set.");
+        }
+    }
+
+    public void QuitGame()
     {
         Application.Quit();
         #if UNITY_EDITOR
