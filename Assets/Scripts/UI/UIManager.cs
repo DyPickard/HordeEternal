@@ -86,6 +86,7 @@ public class UIManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         gameUI.SetActive(false);
+        pauseUI.SetActive(false);
         SceneManager.LoadScene("TitleScreen");
     }
 
