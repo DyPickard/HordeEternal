@@ -39,7 +39,7 @@ public class Enemy : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             // Damage logic here
-            Destroy(gameObject);
+            EnemyKilled();
             // call IncreaseExp() on PlayerLevel script
             other.GetComponent<PlayerLevel>().IncreaseExp(expValue); 
             Debug.Log("Player gained " + expValue + " exp");
@@ -48,6 +48,12 @@ public class Enemy : MonoBehaviour
         {
             // take damage
         }
+    }
+
+    private void EnemyKilled()
+    {
+        // destroy gameobject
+        Destroy(gameObject);
     }
 
 }

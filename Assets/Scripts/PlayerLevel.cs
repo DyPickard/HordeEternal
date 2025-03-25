@@ -5,7 +5,7 @@ public class PlayerLevel : MonoBehaviour
     [SerializeField] private TMPro.TextMeshProUGUI levelText;
     private int level = 1;
     private int exp = 0;
-    private int nextLevelExp = 5;
+    private int nextLevelExp = 10;
 
 
     public void Update()
