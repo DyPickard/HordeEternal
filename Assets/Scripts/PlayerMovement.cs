@@ -16,13 +16,11 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnMove(InputValue value)
     {
-        Debug.Log("OnMove called"); // Debugging message
         movementInput = value.Get<Vector2>();
     }
 
     private void FixedUpdate()
     {
-        print(animator.GetBool("isMoving"));
         // Check if player is moving
         if (movementInput.magnitude > 0) // Fixed movement check
         {
