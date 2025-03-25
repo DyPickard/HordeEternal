@@ -1,11 +1,15 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
     public GameObject gameUI;
-    public GameObject mainMenuPanel;
+    public GameObject pauseUI;
+    public Button resumeButton;
+    public Button quitButton;
+    public Button exitButton;
 
     [Header("Lives")]
     public GameObject heartPrefab;
@@ -22,23 +26,75 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI scoreText;
     private int score = 0;
 
+    private bool isPaused = false;
+
     void Start()
     {
         InitLives(maxLives);
         UpdateScore(0);
         ClearPowerUps();
+
+        resumeButton.onClick.AddListener(ResumeGame);
+        quitButton.onClick.AddListener(ReturnToTitle);
+        exitButton.onClick.AddListener(ExitGame);
     }
 
-    public void ShowGameUI()
+    void Update()
     {
-        gameUI.SetActive(true);
-        mainMenuPanel.SetActive(false);
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (isPaused)
+                ResumeGame();
+            else
+                PauseGame();
+        }
     }
 
-    public void ShowMainMenu()
+    void OnEnable()
     {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "MainLevel")
+        {
+            gameUI.SetActive(true);
+        }
+    }
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0f;
+        isPaused = true;
+        pauseUI.SetActive(true);
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1f;
+        isPaused = false;
+        pauseUI.SetActive(false);
+    }
+
+    public void ReturnToTitle()
+    {
+        Time.timeScale = 1f;
         gameUI.SetActive(false);
-        mainMenuPanel.SetActive(true);
+        SceneManager.LoadScene("TitleScreen");
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
+        #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+        #endif
     }
 
     void InitLives(int lives)
