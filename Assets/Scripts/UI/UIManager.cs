@@ -14,7 +14,7 @@ public class UIManager : MonoBehaviour
     [Header("Lives")]
     public GameObject heartPrefab;
     public Transform livesPanel;
-    private int maxLives = 5;
+    private int maxLives = 6;
     private GameObject[] hearts;
 
     [Header("Power-Ups")]
