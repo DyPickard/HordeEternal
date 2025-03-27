@@ -10,7 +10,7 @@ public class AudioManager : MonoBehaviour
 
     [Header("Volume Settings")]
     [Range(0f, 1f)] public float musicVolume = 0.5f;
-    [Range(0f, 1f)] public float sfxVolume = 0.5f;
+    [Range(0f, 1f)] public float sfxVolume = 1f;
 
     private void Awake()
     {
