@@ -23,8 +23,8 @@ public class UIManager : MonoBehaviour
     public Image utilityBox;
     public Sprite emptySlotSprite;
 
-    [Header("Score")]
-    public TextMeshProUGUI scoreText;
+    [Header("Level")]
+    public TextMeshProUGUI levelText;
     private int score = 0;
 
     private bool isPaused = false;
