@@ -2,60 +2,23 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-<<<<<<< Updated upstream
     public UIManager uiManager;
-=======
-    private UIManager uiManager;
     public AudioClip backgroundMusic;
 
->>>>>>> Stashed changes
     private const int maxLives = 6;
-    [SerializeField] private int currentLives = 3;
-    private int currentScore = 0;
-
+    private int currentLives = 3;
 
     void Start()
     {
-<<<<<<< Updated upstream
-        uiManager.UpdateLives(currentLives);
-        uiManager.UpdateScore(0);
-        uiManager.ClearPowerUps();
-=======
 
-        uiManager = FindObjectOfType<UIManager>();
+        // uiManager.UpdateLives(currentLives);
+        // uiManager.UpdateScore(0);
+        // uiManager.ClearPowerUps();
 
-        if (uiManager == null)
-        {
-            Debug.LogError("UIManager not found! Make sure UIManager is loaded from the Preload scene.");
-            return;
-        }
-
-        uiManager.UpdateLives(currentLives);
-        uiManager.UpdateScore(currentScore);
-        uiManager.ClearPowerUps();
-
-        if (backgroundMusic != null)
-        {
-            AudioManager.Instance.PlayMusic(backgroundMusic);
-        }
->>>>>>> Stashed changes
+        AudioManager.Instance.PlayMusic(backgroundMusic);
     }
 
-    void OnValidate()
-    {
-        if (uiManager != null)
-        {
-            SetLives(currentLives);
-        }
-    }
-
-    public void SetLives(int newLives)
-    {
-        currentLives = Mathf.Clamp(newLives, 0, maxLives);
-        uiManager.UpdateLives(currentLives);
-    }
-
-    public void GetLife()
+    void GetLife()
     {
         if (currentLives < maxLives)
         {
@@ -64,7 +27,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void TakeDamage()
+    void TakeDamage()
     {
         currentLives--;
         uiManager.UpdateLives(currentLives);
@@ -74,18 +37,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void AddScore(int points)
+    void AddScore(int points)
     {
-        currentScore += points;
-        uiManager.UpdateScore(currentScore);
+        uiManager.UpdateScore(points);
     }
 
-    public void PickUpWeapon(Sprite weaponSprite)
+    void PickUpWeapon(Sprite weaponSprite)
     {
         uiManager.SetWeaponPowerUp(weaponSprite);
     }
 
-    public void PickUpUtility(Sprite utilitySprite)
+    void PickUpUtility(Sprite utilitySprite)
     {
         uiManager.SetUtilityPowerUp(utilitySprite);
     }

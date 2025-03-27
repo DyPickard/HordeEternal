@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     public Button resumeButton;
     public Button quitButton;
     public Button exitButton;
+    public AudioClip buttonClickSFX;
 
     [Header("Lives")]
     public GameObject heartPrefab;
@@ -34,9 +35,9 @@ public class UIManager : MonoBehaviour
         UpdateScore(0);
         ClearPowerUps();
 
-        resumeButton.onClick.AddListener(ResumeGame);
-        quitButton.onClick.AddListener(ReturnToTitle);
-        exitButton.onClick.AddListener(ExitGame);
+        resumeButton.onClick.AddListener(() => ButtonClick(ResumeGame));
+        quitButton.onClick.AddListener(() => ButtonClick(ReturnToTitle));
+        exitButton.onClick.AddListener(() => ButtonClick(ExitGame));
     }
 
     void Update()
@@ -84,6 +85,7 @@ public class UIManager : MonoBehaviour
 
     public void ReturnToTitle()
     {
+        AudioManager.Instance.StopMusic();
         Time.timeScale = 1f;
         gameUI.SetActive(false);
         pauseUI.SetActive(false);
@@ -96,6 +98,15 @@ public class UIManager : MonoBehaviour
         #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
         #endif
+    }
+
+    void ButtonClick(System.Action action)
+    {
+        if (buttonClickSFX != null)
+        {
+            AudioManager.Instance.PlaySFX(buttonClickSFX);
+        }
+        action?.Invoke();
     }
 
     void InitLives(int lives)
