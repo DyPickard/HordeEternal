@@ -85,6 +85,7 @@ public class UIManager : MonoBehaviour
 
     public void ReturnToTitle()
     {
+        AudioManager.Instance.StopMusic();
         Time.timeScale = 1f;
         gameUI.SetActive(false);
         pauseUI.SetActive(false);
