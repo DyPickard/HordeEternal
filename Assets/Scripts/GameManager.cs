@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 
     public UIManager uiManager;
     public AudioClip backgroundMusic;
+    public AudioClip gameOverMusic;
 
     public PlayerLevel playerLevel;
 
@@ -106,5 +107,8 @@ public class GameManager : MonoBehaviour
     void GameOver()
     {
         Debug.Log("Game Over!");
+        AudioManager.Instance.StopMusic();
+        AudioManager.Instance.PlayMusic(gameOverMusic);
+        uiManager.GameOver();
     }
 }
