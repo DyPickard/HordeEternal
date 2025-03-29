@@ -166,3 +166,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilespd: 5
+  impactef: {fileID: 1288530134336823150, guid: c17a7c0fbcb2a924aacc199a9a028563, type: 3}
