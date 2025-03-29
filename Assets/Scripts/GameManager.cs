@@ -2,27 +2,34 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private UIManager uiManager;
+
+    public static GameManager Instance { get; private set; }
+
+    public UIManager uiManager;
     public AudioClip backgroundMusic;
 
     private const int maxLives = 6;
     [SerializeField] private int currentLives = 3;
-    private int currentScore = 0;
+
+    // singleton pattern
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject); // prevent duplicates
+            return;
+        }
+        Instance = this;
+        DontDestroyOnLoad(gameObject); // optional
+    }
 
 
     void Start()
     {
-
         uiManager = FindObjectOfType<UIManager>();
 
-        if (uiManager == null)
-        {
-            Debug.LogError("UIManager not found! Make sure UIManager is loaded from the Preload scene.");
-            return;
-        }
-
         uiManager.UpdateLives(currentLives);
-        uiManager.UpdateScore(currentScore);
+        uiManager.UpdateScore(0);
         uiManager.ClearPowerUps();
 
         if (backgroundMusic != null)
@@ -45,7 +52,7 @@ public class GameManager : MonoBehaviour
         uiManager.UpdateLives(currentLives);
     }
 
-    public void GetLife()
+    void GetLife()
     {
         if (currentLives < maxLives)
         {
@@ -64,18 +71,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void AddScore(int points)
+    void AddScore(int points)
     {
-        currentScore += points;
-        uiManager.UpdateScore(currentScore);
+        uiManager.UpdateScore(points);
     }
 
-    public void PickUpWeapon(Sprite weaponSprite)
+    void PickUpWeapon(Sprite weaponSprite)
     {
         uiManager.SetWeaponPowerUp(weaponSprite);
     }
 
-    public void PickUpUtility(Sprite utilitySprite)
+    void PickUpUtility(Sprite utilitySprite)
     {
         uiManager.SetUtilityPowerUp(utilitySprite);
     }
