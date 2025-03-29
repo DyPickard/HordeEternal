@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerLevel : MonoBehaviour
 {
@@ -7,6 +8,8 @@ public class PlayerLevel : MonoBehaviour
     [SerializeField] private int exp = 0;
     [SerializeField] private int nextLevelExp = 10;
 
+    // Added LevelUp event so that all listeners in the game know that the player leveled up in real time
+    public UnityEvent LevelUp;
 
     public void Update()
     {
@@ -19,7 +22,9 @@ public class PlayerLevel : MonoBehaviour
     public void IncreaseLevel()
     {
         nextLevelExp = nextLevelExp * 2;
-        level++;
+
+        // Invoke leveling up
+        LevelUp.Invoke();
     }
     public void IncreaseExp(int e) {
         exp += e;   

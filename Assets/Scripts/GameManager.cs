@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
         // uiManager.ClearPowerUps();
 
         AudioManager.Instance.PlayMusic(backgroundMusic);
+
     }
 
     void GetLife()
