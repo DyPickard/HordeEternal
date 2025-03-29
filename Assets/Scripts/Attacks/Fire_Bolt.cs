@@ -1,16 +1,40 @@
+using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class FireWeapon : MonoBehaviour
+public class Fire_Bolt : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public PlayerLevel playerLevel;
 
-    // Update is called once per frame
+    public int level = 1;
+    public int baserate = 5;
+    public int damage = 1;
+    public int size = 1;
+
+    public float timer = 0;
+
+    public Transform firePosition;
+    public GameObject proj;
+
+    private void Start()
+    {
+        playerLevel.LevelUp.AddListener(() => level += 1); 
+    }
     void Update()
     {
-        
+        int firerate = baserate - level;
+
+        timer += Time.deltaTime;
+        if (timer > firerate)
+        {
+            timer = 0;
+            Fire();
+        }
     }
+    private void Fire()
+    {
+        Debug.Log("All batteries fire, fire!");
+        Instantiate(proj, firePosition.position, firePosition.rotation);
+    }
+
 }
