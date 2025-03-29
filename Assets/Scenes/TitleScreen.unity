@@ -1157,6 +1157,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1a1ba463c298914983e2b35cb660714, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttonClickSFX: {fileID: 8300000, guid: 645da0c40f3da3548a92fd0dddb44ef7, type: 3}
+  backgroundMusic: {fileID: 8300000, guid: 53f8b798ca5d56341b801c2a97933982, type: 3}
 --- !u!4 &2033620451
 Transform:
   m_ObjectHideFlags: 0
