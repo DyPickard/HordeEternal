@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour
 {
     public GameObject gameUI;
     public GameObject pauseUI;
+    public GameObject gameOverUI;
     public Button resumeButton;
     public Button quitButton;
     public Button exitButton;
@@ -75,6 +76,12 @@ public class UIManager : MonoBehaviour
         pauseUI.SetActive(true);
     }
 
+    public void GameOver()
+    {
+        Time.timeScale = 0f;
+        gameOverUI.SetActive(true);
+    }
+
     public void ResumeGame()
     {
         Time.timeScale = 1f;
@@ -88,6 +95,8 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 1f;
         gameUI.SetActive(false);
         pauseUI.SetActive(false);
+        gameOverUI.SetActive(false);
+        Destroy(GameManager.Instance.gameObject);
         SceneManager.LoadScene("TitleScreen");
     }
 
