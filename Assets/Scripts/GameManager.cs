@@ -24,6 +24,19 @@ public class GameManager : MonoBehaviour
     }
 
 
+    // singleton pattern
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject); // prevent duplicates
+            return;
+        }
+        Instance = this;
+        DontDestroyOnLoad(gameObject); // optional
+    }
+
+
     void Start()
     {
         uiManager = FindObjectOfType<UIManager>();
@@ -64,7 +77,7 @@ public class GameManager : MonoBehaviour
     public void TakeDamage()
     {
         currentLives--;
-        uiManager.UpdateLives(currentLives);
+        //uiManager.UpdateLives(currentLives);
         if (currentLives <= 0)
         {
             GameOver();
