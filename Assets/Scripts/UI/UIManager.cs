@@ -25,14 +25,13 @@ public class UIManager : MonoBehaviour
 
     [Header("Level")]
     public TextMeshProUGUI levelText;
-    private int score = 0;
+    public UnityEngine.UI.Image expBar;
 
     private bool isPaused = false;
 
     void Start()
     {
         InitLives(maxLives);
-        UpdateScore(0);
         ClearPowerUps();
 
         resumeButton.onClick.AddListener(() => ButtonClick(ResumeGame));
@@ -123,16 +122,6 @@ public class UIManager : MonoBehaviour
         for (int i = 0; i < hearts.Length; i++)
         {
             hearts[i].SetActive(i < currentLives);
-        }
-    }
-
-    public void UpdateScore(int amount)
-    {
-        score += amount;
-        TextMeshProUGUI scoreText = gameUI.GetComponentInChildren<TextMeshProUGUI>();
-        if (scoreText != null)
-        {
-            scoreText.text = "Score: " + score;
         }
     }
 

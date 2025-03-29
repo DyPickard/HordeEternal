@@ -794,7 +794,7 @@ GameObject:
   - component: {fileID: 625872375}
   - component: {fileID: 625872374}
   m_Layer: 5
-  m_Name: ScorePanel
+  m_Name: LevelPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1976,7 +1976,8 @@ MonoBehaviour:
   weaponBox: {fileID: 1573260611}
   utilityBox: {fileID: 957577397}
   emptySlotSprite: {fileID: 0}
-  levelText: {fileID: 0}
+  levelText: {fileID: 860004904}
+  expBar: {fileID: 488224429}
 --- !u!4 &1637107401
 Transform:
   m_ObjectHideFlags: 0

@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     public UIManager uiManager;
     public AudioClip backgroundMusic;
 
+    public PlayerLevel playerLevel;
+
     private const int maxLives = 6;
     [SerializeField] private int currentLives = 3;
 
@@ -21,28 +23,17 @@ public class GameManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject); // optional
+
+        playerLevel = gameObject.AddComponent<PlayerLevel>();
     }
-
-
-    // singleton pattern
-    private void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject); // prevent duplicates
-            return;
-        }
-        Instance = this;
-        DontDestroyOnLoad(gameObject); // optional
-    }
-
 
     void Start()
     {
         uiManager = FindObjectOfType<UIManager>();
 
+        playerLevel.InitializeUI(uiManager);
+
         uiManager.UpdateLives(currentLives);
-        uiManager.UpdateScore(0);
         uiManager.ClearPowerUps();
 
         if (backgroundMusic != null)
@@ -77,16 +68,26 @@ public class GameManager : MonoBehaviour
     public void TakeDamage()
     {
         currentLives--;
-        //uiManager.UpdateLives(currentLives);
+        uiManager.UpdateLives(currentLives);
         if (currentLives <= 0)
         {
             GameOver();
         }
     }
 
-    void AddScore(int points)
+    public void AddExperience(int expAmount)
     {
-        uiManager.UpdateScore(points);
+        playerLevel.IncreaseExp(expAmount);
+    }
+
+    public void SetLevel(int newLevel)
+    {
+        playerLevel.Level = newLevel;
+    }
+
+    public void SetExperience(int newExp)
+    {
+        playerLevel.Exp = newExp;
     }
 
     void PickUpWeapon(Sprite weaponSprite)
