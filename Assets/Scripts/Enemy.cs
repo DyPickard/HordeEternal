@@ -4,6 +4,8 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 3f;
     [SerializeField] private int expValue = 1;
+    [SerializeField] private int health = 1;
+    [SerializeField] private int damage = 1;
     private GameObject player;
     private Transform playerTransform;
 
@@ -38,15 +40,20 @@ public class Enemy : MonoBehaviour
         Debug.Log("Enemy Triggered with: " + other.name);
         if (other.CompareTag("Player"))
         {
-            // Damage logic here
-            DestroyEnemy();
-            // call IncreaseExp() on PlayerLevel script
-            other.GetComponent<PlayerLevel>().IncreaseExp(expValue); 
-            Debug.Log("Player gained " + expValue + " exp");
+            // get player's rigidbody
+            Rigidbody2D playerRb = other.GetComponent<Rigidbody2D>();
+
+            // knockback player
+            Vector2 knockbackDir = (other.transform.position - transform.position).normalized;
+            float knockbackForce = 5f;
+            float knockbackDuration = 0.02f;
+            player.GetComponent<PlayerMovement>().StartKnockback(knockbackDir, knockbackForce, knockbackDuration);
+            // damage player
+            GameManager.Instance.TakeDamage();
         }
         if (other.CompareTag("Bullet"))
         {
-            // take damage
+            TakeDamage(1);
         }
     }
 
@@ -54,6 +61,15 @@ public class Enemy : MonoBehaviour
     {
         // destroy gameobject
         Destroy(gameObject);
+        player.GetComponent<PlayerLevel>().IncreaseExp(expValue);
+    }
+    private void TakeDamage(int damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            DestroyEnemy();
+        }
     }
 
 }

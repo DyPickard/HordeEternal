@@ -20,8 +20,6 @@ public class PlayerLevel : MonoBehaviour
     {
         nextLevelExp = nextLevelExp * 2;
         level++;
-        //levelText.text = "Level: " + level;
-        
     }
     public void IncreaseExp(int e) {
         exp += e;   

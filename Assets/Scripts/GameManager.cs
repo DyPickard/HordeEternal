@@ -2,11 +2,27 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+
+    public static GameManager Instance { get; private set; }
+
     public UIManager uiManager;
     public AudioClip backgroundMusic;
 
     private const int maxLives = 6;
     private int currentLives = 3;
+
+    // singleton pattern
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject); // prevent duplicates
+            return;
+        }
+        Instance = this;
+        DontDestroyOnLoad(gameObject); // optional
+    }
+
 
     void Start()
     {
@@ -27,10 +43,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void TakeDamage()
+    public void TakeDamage()
     {
         currentLives--;
-        uiManager.UpdateLives(currentLives);
+        //uiManager.UpdateLives(currentLives);
         if (currentLives <= 0)
         {
             GameOver();
