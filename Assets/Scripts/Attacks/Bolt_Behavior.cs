@@ -2,15 +2,18 @@ using UnityEngine;
 
 public class Bolt_Behavior : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public float projectilespd;
+
+    private Rigidbody2D rigidbody;
     void Start()
     {
-        
+        rigidbody = GetComponent<Rigidbody2D>();
+        rigidbody.linearVelocity = transform.right * projectilespd;
     }
 
     // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        Destroy(gameObject);
     }
 }
