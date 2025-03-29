@@ -23,15 +23,18 @@ public class GameManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject); // optional
-
-        playerLevel = gameObject.AddComponent<PlayerLevel>();
     }
 
     void Start()
     {
-        uiManager = FindObjectOfType<UIManager>();
 
+    uiManager = FindObjectOfType<UIManager>();
+    playerLevel = FindObjectOfType<PlayerLevel>();
+
+    if (playerLevel != null)
+    {
         playerLevel.InitializeUI(uiManager);
+    }
 
         uiManager.UpdateLives(currentLives);
         uiManager.ClearPowerUps();

@@ -1,13 +1,16 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerLevel : MonoBehaviour
 {
     [SerializeField] private TMPro.TextMeshProUGUI levelText;
     [SerializeField] private UnityEngine.UI.Image expBar;
 
-    [SerializeField] private int level = 1;
+    public int level = 1;
     [SerializeField] private int exp = 0;
     [SerializeField] private int nextLevelExp = 10;
+
+    public UnityEvent LevelUp = new UnityEvent();
 
     public int Level
     {
