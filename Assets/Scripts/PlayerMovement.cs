@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -42,8 +44,24 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Move the player
-        rb.linearVelocity = movementInput * speed; // Fixed Rigidbody2D movement
+        rb.linearVelocity = movementInput * speed; 
     }
+
+    public void StartKnockback(Vector2 direction, float force, float duration)
+    {
+        StartCoroutine(Knockback(direction, force, duration));
+    }
+    private IEnumerator Knockback(Vector2 direction, float force, float duration)
+    {
+        float timer = 0f;
+        while (timer < duration)
+        {
+            rb.MovePosition(rb.position + direction * force * Time.deltaTime);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+    }
+
 }
 
 
