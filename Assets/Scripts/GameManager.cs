@@ -21,6 +21,9 @@ public class GameManager : MonoBehaviour
     private Color originalColor;
     private SpriteRenderer playerSpriteRenderer;
 
+    private bool isInvulnerable = false;
+
+
 
     // singleton pattern
     private void Awake()
@@ -93,16 +96,29 @@ public class GameManager : MonoBehaviour
 
     public void TakeDamage()
     {
+        if (isInvulnerable)
+            return;
+
         Debug.Log("Player took damage!");
         currentLives--;
         FlashSpriteRed();
         uiManager.UpdateLives(currentLives);
+
         if (currentLives <= 0)
         {
             GameOver();
         }
 
+        StartCoroutine(InvulnerabilityCoroutine());
     }
+
+    private IEnumerator InvulnerabilityCoroutine()
+    {
+        isInvulnerable = true;
+        yield return new WaitForSeconds(1f);
+        isInvulnerable = false;
+    }
+
 
     public void AddExperience(int expAmount)
     {
