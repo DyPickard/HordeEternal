@@ -8,8 +8,10 @@ public class GameManager : MonoBehaviour
     public UIManager uiManager;
     public AudioClip backgroundMusic;
 
+    public PlayerLevel playerLevel;
+
     private const int maxLives = 6;
-    private int currentLives = 3;
+    [SerializeField] private int currentLives = 3;
 
     // singleton pattern
     private void Awake()
@@ -23,16 +25,38 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject); // optional
     }
 
-
     void Start()
     {
 
-        // uiManager.UpdateLives(currentLives);
-        // uiManager.UpdateScore(0);
-        // uiManager.ClearPowerUps();
+    uiManager = FindObjectOfType<UIManager>();
+    playerLevel = FindObjectOfType<PlayerLevel>();
 
-        AudioManager.Instance.PlayMusic(backgroundMusic);
+    if (playerLevel != null)
+    {
+        playerLevel.InitializeUI(uiManager);
+    }
 
+        uiManager.UpdateLives(currentLives);
+        uiManager.ClearPowerUps();
+
+        if (backgroundMusic != null)
+        {
+            AudioManager.Instance.PlayMusic(backgroundMusic);
+        }
+    }
+
+    void OnValidate()
+    {
+        if (uiManager != null)
+        {
+            SetLives(currentLives);
+        }
+    }
+
+    public void SetLives(int newLives)
+    {
+        currentLives = Mathf.Clamp(newLives, 0, maxLives);
+        uiManager.UpdateLives(currentLives);
     }
 
     void GetLife()
@@ -47,16 +71,26 @@ public class GameManager : MonoBehaviour
     public void TakeDamage()
     {
         currentLives--;
-        //uiManager.UpdateLives(currentLives);
+        uiManager.UpdateLives(currentLives);
         if (currentLives <= 0)
         {
             GameOver();
         }
     }
 
-    void AddScore(int points)
+    public void AddExperience(int expAmount)
     {
-        uiManager.UpdateScore(points);
+        playerLevel.IncreaseExp(expAmount);
+    }
+
+    public void SetLevel(int newLevel)
+    {
+        playerLevel.Level = newLevel;
+    }
+
+    public void SetExperience(int newExp)
+    {
+        playerLevel.Exp = newExp;
     }
 
     void PickUpWeapon(Sprite weaponSprite)

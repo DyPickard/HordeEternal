@@ -3,30 +3,99 @@ using UnityEngine.Events;
 
 public class PlayerLevel : MonoBehaviour
 {
-    //[SerializeField] private TMPro.TextMeshProUGUI levelText;
-    [SerializeField] private int level = 1;
+    [SerializeField] private TMPro.TextMeshProUGUI levelText;
+    [SerializeField] private UnityEngine.UI.Image expBar;
+
+    public int level = 1;
     [SerializeField] private int exp = 0;
     [SerializeField] private int nextLevelExp = 10;
 
-    // Added LevelUp event so that all listeners in the game know that the player leveled up in real time
-    public UnityEvent LevelUp;
+    public UnityEvent LevelUp = new UnityEvent();
 
-    public void Update()
+    public int Level
     {
-        if (exp > nextLevelExp)
+        get => level;
+        set
         {
-            IncreaseLevel();
+            level = value;
+            UpdateLevelUI();
         }
     }
 
-    public void IncreaseLevel()
+    public int Exp
     {
-        nextLevelExp = nextLevelExp * 2;
-
-        // Invoke leveling up
-        LevelUp.Invoke();
+        get => exp;
+        set
+        {
+            exp = value;
+            CheckLevelUp(); // Auto-check level up when exp changes
+            UpdateLevelUI();
+        }
     }
-    public void IncreaseExp(int e) {
-        exp += e;   
+
+    public int NextLevelExp
+    {
+        get => nextLevelExp;
+        set
+        {
+            nextLevelExp = value;
+            UpdateLevelUI();
+        }
+    }
+
+    private void Start()
+    {
+        UIManager uiManager = FindObjectOfType<UIManager>();
+        if (uiManager != null)
+        {
+            InitializeUI(uiManager);
+        }
+        else
+        {
+            Debug.LogError("UIManager not found! Make sure it's in the scene.");
+        }
+    }
+
+    // Update UI when changing values in the Inspector during play mode
+    private void OnValidate()
+    {
+        CheckLevelUp();
+        UpdateLevelUI();
+    }
+
+    public void InitializeUI(UIManager uiManager)
+    {
+        levelText = uiManager.levelText;
+        expBar = uiManager.expBar;
+
+        UpdateLevelUI();
+    }
+
+    private void CheckLevelUp()
+    {
+        while (exp >= nextLevelExp)
+        {
+            exp -= nextLevelExp;
+            Level++; // This will call the setter and update UI
+            nextLevelExp *= 2;
+        }
+    }
+
+    public void IncreaseExp(int e)
+    {
+        Exp += e; // Use the setter to update exp and trigger UI update
+    }
+
+    private void UpdateLevelUI()
+    {
+        if (levelText != null)
+        {
+            levelText.text = "Level: " + level;
+        }
+
+        if (expBar != null)
+        {
+            expBar.fillAmount = (float)exp / nextLevelExp;
+        }
     }
 }
