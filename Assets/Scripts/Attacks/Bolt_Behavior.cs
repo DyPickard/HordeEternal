@@ -4,8 +4,7 @@ public class Bolt_Behavior : MonoBehaviour
 {
     public float projectilespd;
     public GameObject impactef;
-
-    private Rigidbody2D rigidbody;
+    private new Rigidbody2D rigidbody;
     void Start()
     {
         float distance = Mathf.Infinity;
@@ -31,7 +30,10 @@ public class Bolt_Behavior : MonoBehaviour
     {
         if (other.CompareTag("Player") == false)
         {
-            Instantiate(impactef, transform.position, Quaternion.identity);
+            Debug.Log("Bolt hit: " + other.name);
+            //Instantiate(impactef, transform.position, Quaternion.identity);
+            GameObject explosion = Instantiate(impactef, transform.position, Quaternion.identity);
+            Destroy(explosion, 0.1f); // Adjust duration to explosion length
             Destroy(gameObject);
         }
     }
