@@ -148,8 +148,15 @@ public class UIManager : MonoBehaviour
         Debug.Log("Setting weapon icon to: " + utilitySprite?.name);
         utilityBox.sprite = utilitySprite;
 
-        // Ensure icon is visible
-        utilityBox.color = Color.white;
+        if (utilitySprite == null)
+        {
+            // Set full transparency
+            Color transparent = new Color(1f, 1f, 1f, 0f);
+            utilityBox.color = transparent;
+        } else {
+            // Ensure icon is visible
+            utilityBox.color = Color.white;
+        }
     }
 
     public void ClearPowerUps()

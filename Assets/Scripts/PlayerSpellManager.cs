@@ -35,6 +35,15 @@ public class PlayerSpellManager : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        // Trigger utility spell with Spacebar
+        if (Input.GetKeyDown(KeyCode.Space) && utilitySpell != null)
+        {
+            utilitySpell.Activate();
+        }
+    }
+
     public void EquipWeaponSpell(Sprite icon, System.Type spellType)
     {
         // Remove old spell
@@ -75,4 +84,11 @@ public class PlayerSpellManager : MonoBehaviour
 
         uiManager.SetUtilityPowerUp(icon);
     }
+
+    public void ClearUtilitySpell()
+    {
+        utilitySpell = null;
+        uiManager.SetUtilityPowerUp(null); // this will make it transparent if sprite is null
+    }
+
 }

@@ -4,6 +4,7 @@ public class ShieldSpell : UtilitySpell
 {
     public float duration = 5f;
     private bool isActive;
+    private GameObject shieldVisual;
 
     public override void Activate()
     {
@@ -12,8 +13,8 @@ public class ShieldSpell : UtilitySpell
         Debug.Log("Shield activated!");
         isActive = true;
 
-        // Example: turn player blue
-        GetComponentInParent<SpriteRenderer>().color = Color.cyan;
+        shieldVisual = GetComponentInParent<PlayerSpellManager>().transform.Find("ShieldVisual")?.gameObject;
+        if (shieldVisual != null) shieldVisual.SetActive(true);
 
         Invoke(nameof(Deactivate), duration);
     }
@@ -21,6 +22,8 @@ public class ShieldSpell : UtilitySpell
     void Deactivate()
     {
         isActive = false;
-        GetComponentInParent<SpriteRenderer>().color = Color.white;
+        GetComponentInParent<PlayerSpellManager>().ClearUtilitySpell();
+        if (shieldVisual != null) shieldVisual.SetActive(false);
+        Destroy(this.gameObject);
     }
 }
