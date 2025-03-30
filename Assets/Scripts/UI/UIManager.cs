@@ -136,17 +136,30 @@ public class UIManager : MonoBehaviour
 
     public void SetWeaponPowerUp(Sprite weaponSprite)
     {
+        Debug.Log("Setting weapon icon to: " + weaponSprite?.name);
         weaponBox.sprite = weaponSprite;
+
+        // Ensure icon is visible
+        weaponBox.color = Color.white;
     }
 
     public void SetUtilityPowerUp(Sprite utilitySprite)
     {
+        Debug.Log("Setting weapon icon to: " + utilitySprite?.name);
         utilityBox.sprite = utilitySprite;
+
+        // Ensure icon is visible
+        utilityBox.color = Color.white;
     }
 
     public void ClearPowerUps()
     {
-        weaponBox.sprite = emptySlotSprite;
-        utilityBox.sprite = emptySlotSprite;
+        weaponBox.sprite = null;
+        utilityBox.sprite = null;
+
+        // Set full transparency
+        Color transparent = new Color(1f, 1f, 1f, 0f);
+        weaponBox.color = transparent;
+        utilityBox.color = transparent;
     }
 }
