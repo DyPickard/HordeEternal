@@ -49,11 +49,22 @@ public abstract class MovementAbility : MonoBehaviour
     {
         isReady = false;
         cooldownTimer = cooldown;
+
+        // Trigger UI cooldown indicator
+        if (GameManager.Instance?.uiManager != null)
+        {
+            GameManager.Instance.uiManager.StartMovementCooldown(cooldown);
+        }
     }
 
     public abstract void UseAbility();
+    
     protected virtual void OnAbilityReady()
     {
         Debug.Log($"{GetType().Name} is ready!");
+        if (GameManager.Instance?.uiManager != null)
+        {
+            GameManager.Instance.uiManager.FlashMovementIconReady();
+        }
     }
 }

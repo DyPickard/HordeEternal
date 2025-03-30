@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class UIManager : MonoBehaviour
 {
@@ -23,6 +24,17 @@ public class UIManager : MonoBehaviour
     public Image weaponBox;
     public Image utilityBox;
     public Sprite emptySlotSprite;
+
+    [Header("Movement Ability Icon")]
+    public Image movementIcon;
+
+    public Sprite dashSprite;
+    public Sprite chargeSprite;
+    public Sprite teleportSprite;
+
+    [Header("Movement Cooldown UI")]
+    public Image movementCooldownOverlay;
+    public Image movementReady;
 
     [Header("Level")]
     public TextMeshProUGUI levelText;
@@ -168,5 +180,67 @@ public class UIManager : MonoBehaviour
         Color transparent = new Color(1f, 1f, 1f, 0f);
         weaponBox.color = transparent;
         utilityBox.color = transparent;
+    }
+
+    public void UpdateMovementIcon(MovementAbilityType type)
+    {
+        switch (type)
+        {
+            case MovementAbilityType.QuickDash:
+                movementIcon.sprite = dashSprite;
+                break;
+            case MovementAbilityType.Charge:
+                movementIcon.sprite = chargeSprite;
+                break;
+            case MovementAbilityType.Teleport:
+                movementIcon.sprite = teleportSprite;
+                break;
+        }
+    }
+
+    public void StartMovementCooldown(float duration)
+    {
+        StartCoroutine(CooldownRoutine(duration));
+    }
+
+    private IEnumerator CooldownRoutine(float duration)
+    {
+        movementCooldownOverlay.fillAmount = 1f;
+
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            movementCooldownOverlay.fillAmount = 1f - (elapsed / duration);
+            yield return null;
+        }
+
+        movementCooldownOverlay.fillAmount = 0f;
+    }
+
+    public void FlashMovementIconReady()
+    {
+        StartCoroutine(FlashReadyRoutine());
+    }
+
+    private IEnumerator FlashReadyRoutine()
+    {
+        if (movementReady == null) yield break;
+
+        Color visible = new Color(1f, 1f, 1f, 0.75f);
+        Color invisible = new Color(1f, 1f, 1f, 0f);
+        float flashDuration = 0.1f;
+
+        for (int i = 0; i < 3; i++)
+        {
+            movementReady.color = visible;
+            yield return new WaitForSeconds(flashDuration);
+
+            movementReady.color = invisible;
+            yield return new WaitForSeconds(flashDuration);
+        }
+
+        movementReady.color = invisible;
     }
 }

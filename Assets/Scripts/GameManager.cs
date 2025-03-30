@@ -72,6 +72,7 @@ public class GameManager : MonoBehaviour
 
             uiManager.UpdateLives(currentLives);
             uiManager.ClearPowerUps();
+            SwitchMovementAbility(currentAbilityType);
 
             {
                 AudioManager.Instance.PlayMusic(backgroundMusic);
@@ -142,16 +143,6 @@ public class GameManager : MonoBehaviour
         playerLevel.Exp = newExp;
     }
 
-    void PickUpWeapon(Sprite weaponSprite)
-    {
-        uiManager.SetWeaponPowerUp(weaponSprite);
-    }
-
-    void PickUpUtility(Sprite utilitySprite)
-    {
-        uiManager.SetUtilityPowerUp(utilitySprite);
-    }
-
     void GameOver()
     {
         Debug.Log("Game Over!");
@@ -213,22 +204,8 @@ public class GameManager : MonoBehaviour
         // Get next ability type
         currentAbilityType = (MovementAbilityType)(((int)currentAbilityType + 1) % 3);
 
-        MovementAbility newAbility = null;
-        switch (currentAbilityType)
-        {
-            case MovementAbilityType.QuickDash:
-                newAbility = player.AddComponent<QuickDashAbility>();
-                break;
-            case MovementAbilityType.Charge:
-                newAbility = player.AddComponent<ChargeAbility>();
-                break;
-            case MovementAbilityType.Teleport:
-                newAbility = player.AddComponent<TeleportAbility>();
-                break;
-        }
-
-        SetMovementAbility(newAbility);
-        Debug.Log($"Switched to {currentAbilityType} ability");
+        // Let the main method handle switching and UI
+        SwitchMovementAbility(currentAbilityType);
     }
 
     public void SetMovementAbility(MovementAbility newAbility)
@@ -249,4 +226,29 @@ public class GameManager : MonoBehaviour
         isTemporarilyInvulnerable = invulnerable;
     }
 
+    public void SwitchMovementAbility(MovementAbilityType abilityType)
+    {
+        currentAbilityType = abilityType;
+
+        MovementAbility newAbility = null;
+
+        switch (currentAbilityType)
+        {
+            case MovementAbilityType.QuickDash:
+                newAbility = player.AddComponent<QuickDashAbility>();
+                break;
+            case MovementAbilityType.Charge:
+                newAbility = player.AddComponent<ChargeAbility>();
+                break;
+            case MovementAbilityType.Teleport:
+                newAbility = player.AddComponent<TeleportAbility>();
+                break;
+        }
+
+        SetMovementAbility(newAbility);
+
+        // Update the UI icon
+        uiManager.UpdateMovementIcon(currentAbilityType);
+        Debug.Log($"Movement ability switched via UI to {currentAbilityType}");
+    }
 }
