@@ -21,9 +21,10 @@ public class GameManager : MonoBehaviour
     private Color originalColor;
     private SpriteRenderer playerSpriteRenderer;
 
-    private bool isInvulnerable = false;
+    public bool isTemporarilyInvulnerable = false; // from damage flash
+    public bool isShielded = false; // from ShieldSpell
 
-    // Movement ability properties
+    public bool isInvulnerable => isTemporarilyInvulnerable || isShielded;
     private MovementAbility currentMovementAbility;
     private MovementAbilityType currentAbilityType = MovementAbilityType.QuickDash;
 
@@ -119,9 +120,9 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator InvulnerabilityCoroutine()
     {
-        isInvulnerable = true;
+        isTemporarilyInvulnerable = true;
         yield return new WaitForSeconds(1f);
-        isInvulnerable = false;
+        isTemporarilyInvulnerable = false;
     }
 
 
