@@ -193,7 +193,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         // Check for movement ability input
-        if (Input.GetKeyDown(KeyCode.Space) && currentMovementAbility != null)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && currentMovementAbility != null)
         {
             currentMovementAbility.UseAbility();
         }

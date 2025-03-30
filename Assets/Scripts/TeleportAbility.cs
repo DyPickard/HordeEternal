@@ -4,16 +4,23 @@ using System.Collections;
 public class TeleportAbility : MovementAbility
 {
     [SerializeField] private float maxTeleportDistance = 5f;
+    [SerializeField] private float fadeDuration = 0.2f;
     private bool isAiming = false;
     private Camera mainCamera;
+    private SpriteRenderer spriteRenderer;
 
     protected override void Start()
     {
         base.Start();
         mainCamera = Camera.main;
+        spriteRenderer = player.GetComponent<SpriteRenderer>();
         if (mainCamera == null)
         {
             Debug.LogError("Main camera not found!");
+        }
+        if (spriteRenderer == null)
+        {
+            Debug.LogError("SpriteRenderer not found on player!");
         }
     }
 
@@ -51,7 +58,7 @@ public class TeleportAbility : MovementAbility
             teleportDirection = teleportDirection.normalized * maxTeleportDistance;
         }
 
-        PerformTeleport(currentPosition + teleportDirection);
+        StartCoroutine(PerformTeleportWithFade(currentPosition + teleportDirection));
         StartCooldown();
         isAiming = false;
     }
@@ -61,7 +68,7 @@ public class TeleportAbility : MovementAbility
         return;
     }
 
-    private void PerformTeleport(Vector2 targetPosition)
+    private IEnumerator PerformTeleportWithFade(Vector2 targetPosition)
     {
         Debug.Log($"Teleporting to: {targetPosition}");
 
@@ -70,8 +77,34 @@ public class TeleportAbility : MovementAbility
         playerMovement.enabled = false;
         GameManager.Instance.SetInvulnerable(true);
 
-        // Instant teleport
+        // Fade out
+        float elapsedTime = 0f;
+        Color startColor = spriteRenderer.color;
+        Color endColor = new Color(startColor.r, startColor.g, startColor.b, 0f);
+
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / fadeDuration;
+            spriteRenderer.color = Color.Lerp(startColor, endColor, t);
+            yield return null;
+        }
+
+        // Perform teleport
         player.transform.position = targetPosition;
+
+        // Fade in
+        elapsedTime = 0f;
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / fadeDuration;
+            spriteRenderer.color = Color.Lerp(endColor, startColor, t);
+            yield return null;
+        }
+
+        // Ensure color is fully reset
+        spriteRenderer.color = startColor;
 
         // Restore control and vulnerability
         playerMovement.enabled = wasControlEnabled;
