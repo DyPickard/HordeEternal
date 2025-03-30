@@ -24,6 +24,13 @@ public class UIManager : MonoBehaviour
     public Image utilityBox;
     public Sprite emptySlotSprite;
 
+    [Header("Movement Ability Icon")]
+    public Image movementIcon;
+
+    public Sprite dashSprite;
+    public Sprite chargeSprite;
+    public Sprite teleportSprite;
+
     [Header("Level")]
     public TextMeshProUGUI levelText;
     public UnityEngine.UI.Image expBar;
@@ -168,5 +175,21 @@ public class UIManager : MonoBehaviour
         Color transparent = new Color(1f, 1f, 1f, 0f);
         weaponBox.color = transparent;
         utilityBox.color = transparent;
+    }
+
+    public void UpdateMovementIcon(MovementAbilityType type)
+    {
+        switch (type)
+        {
+            case MovementAbilityType.QuickDash:
+                movementIcon.sprite = dashSprite;
+                break;
+            case MovementAbilityType.Charge:
+                movementIcon.sprite = chargeSprite;
+                break;
+            case MovementAbilityType.Teleport:
+                movementIcon.sprite = teleportSprite;
+                break;
+        }
     }
 }
