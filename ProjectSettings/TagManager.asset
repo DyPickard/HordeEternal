@@ -7,6 +7,8 @@ TagManager:
   - Enemy
   - UIManager
   - Bullet
+  - Ground
+  - Collision
   layers:
   - Default
   - TransparentFX

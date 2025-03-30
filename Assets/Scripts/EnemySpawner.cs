@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -7,6 +8,8 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private Camera mainCamera;
     [SerializeField] private float spawnInterval = 2f;
     [SerializeField] private float spawnDistanceFromCamera = 2f;
+    [SerializeField] private Tilemap groundTilemap;
+    [SerializeField] private Tilemap collisionTilemap;
 
     private float timer;
 
@@ -32,31 +35,36 @@ public class EnemySpawner : MonoBehaviour
         float camHeight = 2f * mainCamera.orthographicSize;
         float camWidth = camHeight * mainCamera.aspect;
 
-        // Expand the bounds by spawnDistanceFromCamera
-        float x = 0f, y = 0f;
-        int side = Random.Range(0, 4); // 0 = Top, 1 = Bottom, 2 = Left, 3 = Right
-
-        switch (side)
+        for (int i = 0; i < 10; i++) // Try up to 10 times
         {
-            case 0: // Top
-                x = Random.Range(-camWidth / 2, camWidth / 2);
-                y = camHeight / 2 + spawnDistanceFromCamera;
-                break;
-            case 1: // Bottom
-                x = Random.Range(-camWidth / 2, camWidth / 2);
-                y = -camHeight / 2 - spawnDistanceFromCamera;
-                break;
-            case 2: // Left
-                x = -camWidth / 2 - spawnDistanceFromCamera;
-                y = Random.Range(-camHeight / 2, camHeight / 2);
-                break;
-            case 3: // Right
-                x = camWidth / 2 + spawnDistanceFromCamera;
-                y = Random.Range(-camHeight / 2, camHeight / 2);
-                break;
+            float x = 0f, y = 0f;
+            int side = Random.Range(0, 4);
+
+            switch (side)
+            {
+                case 0: x = Random.Range(-camWidth / 2, camWidth / 2); y = camHeight / 2 + spawnDistanceFromCamera; break;
+                case 1: x = Random.Range(-camWidth / 2, camWidth / 2); y = -camHeight / 2 - spawnDistanceFromCamera; break;
+                case 2: x = -camWidth / 2 - spawnDistanceFromCamera; y = Random.Range(-camHeight / 2, camHeight / 2); break;
+                case 3: x = camWidth / 2 + spawnDistanceFromCamera; y = Random.Range(-camHeight / 2, camHeight / 2); break;
+            }
+
+            Vector3 worldPos = new Vector3(x, y, 0) + cameraPos;
+            Vector3Int cellPos = groundTilemap.WorldToCell(worldPos);
+
+            // Check ground and collision tilemaps
+            TileBase groundTile = groundTilemap.GetTile(cellPos);
+            TileBase collisionTile = collisionTilemap.GetTile(cellPos);
+
+            if (groundTilemap.HasTile(cellPos) && !collisionTilemap.HasTile(cellPos))
+            {
+                Vector3 center = groundTilemap.GetCellCenterWorld(cellPos);
+                center.z = 0f; // Lock Z to 0 for all spawned enemies
+                return center;
+            }
         }
 
-        // Convert local offset to world position relative to camera
-        return new Vector3(x, y, 0) + cameraPos;
+        Debug.LogWarning("Failed to find valid ground tile to spawn on.");
+        return cameraPos;
     }
+
 }
