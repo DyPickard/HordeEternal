@@ -184,7 +184,4 @@ public class GameManager : MonoBehaviour
         playerSpriteRenderer.color = originalColor;
         flashCoroutine = null;
     }
-
-
-
 }
