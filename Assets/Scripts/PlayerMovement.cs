@@ -7,7 +7,7 @@ using UnityEngine.Tilemaps;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float speed = 5f; // Speed of the player
+    [SerializeField] public float speed = 1.25f; // Reduced from 2.5f for slower gameplay
     [SerializeField] private Animator animator; // Animator component of the player
     [SerializeField] private Tilemap collisionTilemap;
 
@@ -41,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                // Tile has collision – block movement
+                // Tile has collision ï¿½ block movement
                 animator.SetBool("isMoving", false);
             }
         }
@@ -77,6 +77,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    // Returns the player's current movement direction (normalized)
+    public Vector2 GetMovementDirection()
+    {
+        return movementInput.normalized;
+    }
 }
 
 
