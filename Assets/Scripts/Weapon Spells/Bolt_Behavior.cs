@@ -4,36 +4,52 @@ public class Bolt_Behavior : MonoBehaviour
 {
     public float projectilespd;
     public GameObject impactef;
-    private new Rigidbody2D rigidbody;
+
+    private Rigidbody2D rb;
+
     void Start()
     {
-        float distance = Mathf.Infinity;
+        rb = GetComponent<Rigidbody2D>();
+
+        // Find the closest enemy
+        Vector3 direction = GetTargetDirection();
+        rb.linearVelocity = direction.normalized * projectilespd;
+
+        // Rotate sprite to match velocity
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0f, 0f, angle);
+    }
+
+    Vector3 GetTargetDirection()
+    {
+        float closestDist = Mathf.Infinity;
         Enemy closest = null;
-        Enemy[] allEnemies = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
-        
-        foreach (Enemy currentE in allEnemies)
+        Enemy[] allEnemies = FindObjectsOfType<Enemy>();
+
+        foreach (Enemy e in allEnemies)
         {
-            float distanceIteration = (currentE.transform.position - transform.position).sqrMagnitude;
-            if (distanceIteration < distance)
+            float dist = (e.transform.position - transform.position).sqrMagnitude;
+            if (dist < closestDist)
             {
-                distance = distanceIteration;
-                closest = currentE;
+                closestDist = dist;
+                closest = e;
             }
         }
 
-        Vector3 aim = closest.transform.position - transform.position;
-        rigidbody = GetComponent<Rigidbody2D>();
-        rigidbody.linearVelocity = new Vector2(aim.x, aim.y).normalized * projectilespd;
+        if (closest != null)
+            return closest.transform.position - transform.position;
 
+        // Default to forward if no enemies
+        return Vector3.up;
     }
+
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player") == false)
+        if (!other.CompareTag("Player"))
         {
             Debug.Log("Bolt hit: " + other.name);
-            //Instantiate(impactef, transform.position, Quaternion.identity);
             GameObject explosion = Instantiate(impactef, transform.position, Quaternion.identity);
-            Destroy(explosion, 0.1f); // Adjust duration to explosion length
+            Destroy(explosion, 0.1f);
             Destroy(gameObject);
         }
     }
