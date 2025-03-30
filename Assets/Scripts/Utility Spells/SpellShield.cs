@@ -16,11 +16,16 @@ public class ShieldSpell : UtilitySpell
         shieldVisual = GetComponentInParent<PlayerSpellManager>().transform.Find("ShieldVisual")?.gameObject;
         if (shieldVisual != null) shieldVisual.SetActive(true);
 
+        GameManager gameManager = FindObjectOfType<GameManager>();
+        if (gameManager != null) gameManager.isShielded = true;
+
         Invoke(nameof(Deactivate), duration);
     }
 
     void Deactivate()
     {
+        GameManager gameManager = FindObjectOfType<GameManager>();
+        if (gameManager != null) gameManager.isShielded = false;
         isActive = false;
         GetComponentInParent<PlayerSpellManager>().ClearUtilitySpell();
         if (shieldVisual != null) shieldVisual.SetActive(false);
