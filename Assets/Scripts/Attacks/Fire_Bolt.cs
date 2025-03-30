@@ -1,8 +1,6 @@
-using JetBrains.Annotations;
 using UnityEngine;
-using UnityEngine.Events;
 
-public class Fire_Bolt : MonoBehaviour
+public class Fire_Bolt : Spell
 {
     public PlayerLevel playerLevel;
 
@@ -17,19 +15,18 @@ public class Fire_Bolt : MonoBehaviour
 
     void Update()
     {
-        int firerate = baserate - playerLevel.level;
+        int firerate = Mathf.Max(1, baserate - playerLevel.level);
 
         timer += Time.deltaTime;
         if (timer > firerate)
         {
             timer = 0;
-            Fire();
+            Activate();
         }
     }
-    private void Fire()
+    public override void Activate()
     {
         Debug.Log("All batteries fire, fire!");
         Instantiate(proj, firePosition.position, firePosition.rotation);
     }
-
 }
