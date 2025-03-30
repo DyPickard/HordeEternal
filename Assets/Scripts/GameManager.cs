@@ -23,7 +23,13 @@ public class GameManager : MonoBehaviour
 
     private bool isInvulnerable = false;
 
-
+    // Movement ability properties
+    [SerializeField] private float movementAbilityCooldown = 3f;
+    [SerializeField] private float dashDistance = 3f;
+    [SerializeField] private float dashDuration = 0.2f;
+    private bool movementAbilityReady = true;
+    private float movementAbilityCooldownTimer = 0f;
+    private PlayerMovement playerMovement;
 
     // singleton pattern
     private void Awake()
@@ -42,6 +48,7 @@ public class GameManager : MonoBehaviour
 
         uiManager = FindObjectOfType<UIManager>();
         playerLevel = FindObjectOfType<PlayerLevel>();
+        playerMovement = FindObjectOfType<PlayerMovement>();
 
         if (playerLevel != null)
         {
@@ -157,7 +164,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Flash coroutine called");
         if (flashCoroutine != null)
-            StopCoroutine(flashCoroutine); 
+            StopCoroutine(flashCoroutine);
 
         flashCoroutine = StartCoroutine(FlashSpriteRedCoroutine());
     }
@@ -185,6 +192,88 @@ public class GameManager : MonoBehaviour
         flashCoroutine = null;
     }
 
+    void Update()
+    {
+        // Check for movement ability input
+        if (Input.GetKeyDown(KeyCode.Space) && movementAbilityReady)
+        {
+            UseMovementAbility();
+        }
 
+        if (!movementAbilityReady)
+        {
+            movementAbilityCooldownTimer -= Time.deltaTime;
+            if (movementAbilityCooldownTimer <= 0)
+            {
+                movementAbilityReady = true;
+                Debug.Log("Movement ability ready!");
+            }
+        }
+    }
+
+    private void UseMovementAbility()
+    {
+        Debug.Log("Movement ability used!");
+
+        if (playerMovement != null)
+        {
+            Vector2 dashDirection = playerMovement.GetMovementDirection();
+
+            // If player isn't actively moving, dash forward based on facing direction
+            if (dashDirection.magnitude < 0.1f)
+            {
+                float facingX = player.transform.localScale.x;
+                dashDirection = new Vector2(facingX, 0).normalized;
+            }
+
+            if (dashDirection.magnitude > 0)
+            {
+                StartCoroutine(PerformDash(dashDirection));
+            }
+            else
+            {
+                Debug.Log("No valid dash direction found!");
+            }
+        }
+        else
+        {
+            Debug.LogError("PlayerMovement component not found!");
+        }
+
+        movementAbilityReady = false;
+        movementAbilityCooldownTimer = movementAbilityCooldown;
+    }
+
+    private IEnumerator PerformDash(Vector2 direction)
+    {
+        Debug.Log("Dashing in direction: " + direction);
+
+        float startTime = Time.time;
+        Vector2 startPosition = player.transform.position;
+        Vector2 targetPosition = startPosition + direction * dashDistance;
+
+        // Temporarily disable player control during dash
+        bool wasControlEnabled = playerMovement.enabled;
+        playerMovement.enabled = false;
+
+        // Make player temporarily invulnerable during dash
+        bool wasInvulnerable = isInvulnerable;
+        isInvulnerable = true;
+
+        while (Time.time < startTime + dashDuration)
+        {
+            float t = (Time.time - startTime) / dashDuration;
+            player.transform.position = Vector2.Lerp(startPosition, targetPosition, t);
+            yield return null;
+        }
+
+        player.transform.position = targetPosition;
+
+        playerMovement.enabled = wasControlEnabled;
+
+        isInvulnerable = wasInvulnerable;
+
+        Debug.Log("Dash completed!");
+    }
 
 }

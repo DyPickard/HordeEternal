@@ -41,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                // Tile has collision – block movement
+                // Tile has collision ï¿½ block movement
                 animator.SetBool("isMoving", false);
             }
         }
@@ -77,6 +77,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    // Returns the player's current movement direction (normalized)
+    public Vector2 GetMovementDirection()
+    {
+        return movementInput.normalized;
+    }
 }
 
 
