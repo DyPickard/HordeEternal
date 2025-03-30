@@ -7,7 +7,7 @@ using UnityEngine.Tilemaps;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float speed = 5f; // Speed of the player
+    [SerializeField] public float speed = 1.25f; // Reduced from 2.5f for slower gameplay
     [SerializeField] private Animator animator; // Animator component of the player
     [SerializeField] private Tilemap collisionTilemap;
 

@@ -1,6 +1,13 @@
 using UnityEngine;
 using System.Collections;
 
+public enum MovementAbilityType
+{
+    QuickDash,
+    Charge,
+    Teleport
+}
+
 public abstract class MovementAbility : MonoBehaviour
 {
     [SerializeField] protected float cooldown = 3f;

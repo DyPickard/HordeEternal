@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
 
     // Movement ability properties
     private MovementAbility currentMovementAbility;
+    private MovementAbilityType currentAbilityType = MovementAbilityType.QuickDash;
 
     // singleton pattern
     private void Awake()
@@ -59,7 +60,7 @@ public class GameManager : MonoBehaviour
                 }
 
                 // Give player the default dash ability
-                DashAbility dashAbility = player.AddComponent<DashAbility>();
+                QuickDashAbility dashAbility = player.AddComponent<QuickDashAbility>();
                 SetMovementAbility(dashAbility);
             }
             else
@@ -196,6 +197,35 @@ public class GameManager : MonoBehaviour
         {
             currentMovementAbility.UseAbility();
         }
+
+        // Check for ability swap
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            CycleMovementAbility();
+        }
+    }
+
+    private void CycleMovementAbility()
+    {
+        // Get next ability type
+        currentAbilityType = (MovementAbilityType)(((int)currentAbilityType + 1) % 3);
+
+        MovementAbility newAbility = null;
+        switch (currentAbilityType)
+        {
+            case MovementAbilityType.QuickDash:
+                newAbility = player.AddComponent<QuickDashAbility>();
+                break;
+            case MovementAbilityType.Charge:
+                newAbility = player.AddComponent<ChargeAbility>();
+                break;
+            case MovementAbilityType.Teleport:
+                newAbility = player.AddComponent<TeleportAbility>();
+                break;
+        }
+
+        SetMovementAbility(newAbility);
+        Debug.Log($"Switched to {currentAbilityType} ability");
     }
 
     public void SetMovementAbility(MovementAbility newAbility)
@@ -207,7 +237,7 @@ public class GameManager : MonoBehaviour
         }
 
         // Add the new ability component to the player
-        currentMovementAbility = player.AddComponent(newAbility.GetType()) as MovementAbility;
+        currentMovementAbility = newAbility;
         Debug.Log($"New movement ability set: {newAbility.GetType().Name}");
     }
 

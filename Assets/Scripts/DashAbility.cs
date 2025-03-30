@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class DashAbility : MovementAbility
+public class QuickDashAbility : MovementAbility
 {
     [SerializeField] private float dashDistance = 3f;
     [SerializeField] private float dashDuration = 0.2f;
@@ -33,7 +33,7 @@ public class DashAbility : MovementAbility
 
     private IEnumerator PerformDash(Vector2 direction)
     {
-        Debug.Log("Dashing in direction: " + direction);
+        Debug.Log("Quick dashing in direction: " + direction);
         isDashing = true;
 
         float startTime = Time.time;
@@ -61,6 +61,6 @@ public class DashAbility : MovementAbility
         GameManager.Instance.SetInvulnerable(false);
 
         isDashing = false;
-        Debug.Log("Dash completed!");
+        Debug.Log("Quick dash completed!");
     }
 }
