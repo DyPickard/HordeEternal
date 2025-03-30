@@ -3,11 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Tilemaps;
 
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float speed = 5f; // Speed of the player
     [SerializeField] private Animator animator; // Animator component of the player
+    [SerializeField] private Tilemap collisionTilemap;
+
     private Vector2 movementInput;
     private Rigidbody2D rb;
 
@@ -23,17 +26,31 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Check if player is moving
-        if (movementInput.magnitude > 0) // Fixed movement check
+        if (movementInput.magnitude > 0)
         {
             animator.SetBool("isMoving", true);
+
+            Vector2 newPosition = rb.position + movementInput * speed * Time.fixedDeltaTime;
+
+            Vector3Int tilePosition = collisionTilemap.WorldToCell(newPosition);
+            TileBase tile = collisionTilemap.GetTile(tilePosition);
+
+            if (tile == null) // No collision tile
+            {
+                rb.MovePosition(newPosition);
+            }
+            else
+            {
+                // Tile has collision – block movement
+                animator.SetBool("isMoving", false);
+            }
         }
         else
         {
             animator.SetBool("isMoving", false);
         }
 
-        // Flip character sprite based on movement direction
+        // Flip sprite
         if (movementInput.x < 0)
         {
             transform.localScale = new Vector3(-1, 1, 1);
@@ -42,10 +59,8 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.localScale = new Vector3(1, 1, 1);
         }
-
-        // Move the player
-        rb.linearVelocity = movementInput * speed; 
     }
+
 
     public void StartKnockback(Vector2 direction, float force, float duration)
     {
