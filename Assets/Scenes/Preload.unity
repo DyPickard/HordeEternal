@@ -165,7 +165,7 @@ GameObject:
   m_Component:
   - component: {fileID: 84339089}
   m_Layer: 5
-  m_Name: Icons
+  m_Name: BoxLabelIcons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -308,7 +308,7 @@ GameObject:
   - component: {fileID: 93891329}
   - component: {fileID: 93891328}
   m_Layer: 5
-  m_Name: WeaponIcon
+  m_Name: WeaponBoxLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1922,7 +1922,7 @@ GameObject:
   m_Component:
   - component: {fileID: 957577396}
   - component: {fileID: 957577398}
-  - component: {fileID: 957577397}
+  - component: {fileID: 957577399}
   m_Layer: 5
   m_Name: UtilityBox
   m_TagString: Untagged
@@ -1946,10 +1946,18 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 50, y: 8}
+  m_AnchoredPosition: {x: 50, y: 7}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &957577397
+--- !u!222 &957577398
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 957577395}
+  m_CullTransparentMesh: 1
+--- !u!114 &957577399
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1962,7 +1970,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1979,14 +1987,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!222 &957577398
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 957577395}
-  m_CullTransparentMesh: 1
 --- !u!1 &1054224498
 GameObject:
   m_ObjectHideFlags: 0
@@ -2511,7 +2511,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1573260610}
   - component: {fileID: 1573260612}
-  - component: {fileID: 1573260611}
+  - component: {fileID: 1573260613}
   m_Layer: 5
   m_Name: WeaponBox
   m_TagString: Untagged
@@ -2535,10 +2535,18 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -50, y: 8}
+  m_AnchoredPosition: {x: -50, y: 7}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1573260611
+--- !u!222 &1573260612
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1573260609}
+  m_CullTransparentMesh: 1
+--- !u!114 &1573260613
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2551,7 +2559,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2568,14 +2576,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!222 &1573260612
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1573260609}
-  m_CullTransparentMesh: 1
 --- !u!1 &1637107398
 GameObject:
   m_ObjectHideFlags: 0
@@ -2627,8 +2627,8 @@ MonoBehaviour:
   buttonClickSFX: {fileID: 8300000, guid: 645da0c40f3da3548a92fd0dddb44ef7, type: 3}
   heartPrefab: {fileID: 7229113686359670597, guid: bd8a57de92f67774298bee16d36b55c3, type: 3}
   livesPanel: {fileID: 690738811}
-  weaponBox: {fileID: 1573260611}
-  utilityBox: {fileID: 957577397}
+  weaponBox: {fileID: 1573260613}
+  utilityBox: {fileID: 957577399}
   emptySlotSprite: {fileID: 0}
   levelText: {fileID: 860004904}
   expBar: {fileID: 488224429}
@@ -3215,7 +3215,7 @@ GameObject:
   - component: {fileID: 2115956012}
   - component: {fileID: 2115956011}
   m_Layer: 5
-  m_Name: UtilityIcon
+  m_Name: UtilityBoxLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
