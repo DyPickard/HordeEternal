@@ -29,6 +29,7 @@ public class ChargeAbility : MovementAbility
         float originalSpeed = playerMovement.speed;
         playerMovement.speed *= speedMultiplier; // Multiply by 1.25 for 25% increase
 
+        yield return new WaitForSeconds(chargeDuration);
 
         // Restore original speed
         playerMovement.speed = originalSpeed;

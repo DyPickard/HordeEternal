@@ -68,8 +68,10 @@ public class TeleportAbility : MovementAbility
         // Temporarily disable player control and make invulnerable
         bool wasControlEnabled = playerMovement.enabled;
         playerMovement.enabled = false;
+        GameManager.Instance.SetInvulnerable(true);
 
         // Instant teleport
+        player.transform.position = targetPosition;
 
         // Restore control and vulnerability
         playerMovement.enabled = wasControlEnabled;
