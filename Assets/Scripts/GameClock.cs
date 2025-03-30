@@ -47,7 +47,6 @@ public class GameClock : MonoBehaviour
     {
         int minutes = (timeInSeconds / 60);
         int seconds = (timeInSeconds % 60);
-        //Debug.Log(string.Format("{0:00}:{1:00}", minutes, seconds));
         timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 

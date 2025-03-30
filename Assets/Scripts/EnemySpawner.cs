@@ -10,7 +10,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float spawnDistanceFromCamera = 2f;
     [SerializeField] private Tilemap groundTilemap;
     [SerializeField] private Tilemap collisionTilemap;
-
+    [SerializeField] private GameClock gameClock;
     private float timer;
 
     void Update()
@@ -18,6 +18,7 @@ public class EnemySpawner : MonoBehaviour
         timer += Time.deltaTime;
         if (timer >= spawnInterval)
         {
+            TimerSpawnIntervalChange(gameClock.gameTime);
             SpawnEnemy();
             timer = 0f;
         }
@@ -27,6 +28,30 @@ public class EnemySpawner : MonoBehaviour
     {
         Vector3 spawnPos = GetRandomSpawnPosition();
         Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+    }
+
+    void TimerSpawnIntervalChange(int seconds)
+    {
+        switch(seconds)
+        {
+            case < 60:
+                spawnInterval = 2f;
+                break;
+            case < 120:
+                spawnInterval = 1.8f;
+                break;
+            case < 180:
+                spawnInterval = 1.6f;
+                break;
+            case < 240:
+                spawnInterval = 1.4f;
+                break;
+            case < 300:
+                spawnInterval = 1.2f;
+                break;
+            default:
+                break;
+        }
     }
 
     Vector3 GetRandomSpawnPosition()
