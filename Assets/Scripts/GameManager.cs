@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        gameClock = FindObjectOfType<GameClock>();
         uiManager = FindObjectOfType<UIManager>();
         playerLevel = FindObjectOfType<PlayerLevel>();
 
