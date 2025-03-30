@@ -194,7 +194,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         // Check for movement ability input
-        if (Input.GetKeyDown(KeyCode.LeftShift) && currentMovementAbility != null)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && currentMovementAbility != null && !(currentMovementAbility is TeleportAbility))
         {
             currentMovementAbility.UseAbility();
         }
@@ -244,7 +244,7 @@ public class GameManager : MonoBehaviour
 
     public void SetInvulnerable(bool invulnerable)
     {
-        isInvulnerable = invulnerable;
+        isTemporarilyInvulnerable = invulnerable;
     }
 
 }

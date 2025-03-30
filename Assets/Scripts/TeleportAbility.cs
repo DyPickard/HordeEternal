@@ -28,11 +28,11 @@ public class TeleportAbility : MovementAbility
     {
         base.Update();
 
-        if (Input.GetKeyDown(KeyCode.Space) && CanUseAbility())
+        if (Input.GetKeyDown(KeyCode.LeftShift) && CanUseAbility())
         {
             StartAiming();
         }
-        else if (Input.GetKeyUp(KeyCode.Space) && isAiming)
+        else if (Input.GetKeyUp(KeyCode.LeftShift) && isAiming)
         {
             FinishAiming();
         }
