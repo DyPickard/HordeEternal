@@ -1,6 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(FlashOnHit))]
 public class Enemy : MonoBehaviour
 {
     [SerializeField] protected float moveSpeed = 1f;
@@ -11,6 +12,7 @@ public class Enemy : MonoBehaviour
     protected GameObject player;
     protected Transform playerTransform;
     protected Rigidbody2D rb;
+    protected FlashOnHit flashEffect;
 
     protected virtual void Start()
     {
@@ -21,6 +23,7 @@ public class Enemy : MonoBehaviour
         }
 
         rb = GetComponent<Rigidbody2D>();
+        flashEffect = GetComponent<FlashOnHit>();
     }
 
     protected virtual void FixedUpdate()
@@ -66,6 +69,11 @@ public class Enemy : MonoBehaviour
     protected virtual void TakeDamage(int damage)
     {
         health -= damage;
+        if (flashEffect != null)
+        {
+            flashEffect.Flash();
+        }
+
         if (health <= 0)
         {
             DestroyEnemy();
