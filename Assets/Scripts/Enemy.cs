@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 3f;
+    [SerializeField] private float moveSpeed = 1f;
     [SerializeField] private int expValue = 1;
     [SerializeField] private int health = 1;
     [SerializeField] private int damage = 1;
