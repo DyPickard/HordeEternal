@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     public UIManager uiManager;
     public AudioClip backgroundMusic;
     public AudioClip gameOverMusic;
+    public DropTableManager dropTableManager;
+    public GameObject heartPrefab;
 
     public PlayerLevel playerLevel;
     private const int maxLives = 6;
@@ -44,6 +46,12 @@ public class GameManager : MonoBehaviour
     {
         uiManager = FindObjectOfType<UIManager>();
         playerLevel = FindObjectOfType<PlayerLevel>();
+        dropTableManager = FindObjectOfType<DropTableManager>();
+
+        if (dropTableManager == null)
+        {
+            Debug.LogError("DropTableManager not found in scene! Please add it to your game scene.");
+        }
 
         if (playerLevel != null)
         {
@@ -77,6 +85,11 @@ public class GameManager : MonoBehaviour
                 AudioManager.Instance.PlayMusic(backgroundMusic);
             }
         }
+
+        if (dropTableManager != null)
+        {
+            InitializeDropTable();
+        }
     }
     void OnValidate()
     {
@@ -92,7 +105,7 @@ public class GameManager : MonoBehaviour
         uiManager.UpdateLives(currentLives);
     }
 
-    void GetLife()
+    public void GetLife()
     {
         if (currentLives < maxLives)
         {
@@ -248,5 +261,25 @@ public class GameManager : MonoBehaviour
         // Update the UI icon
         uiManager.UpdateMovementIcon(currentAbilityType);
         Debug.Log($"Movement ability switched via UI to {currentAbilityType}");
+    }
+
+    private void InitializeDropTable()
+    {
+        if (dropTableManager.GetDropTableCount() == 0)
+        {
+            Debug.Log("Initializing drop table for the first time");
+            if (heartPrefab != null)
+            {
+                dropTableManager.AddItemToDropTable(heartPrefab, "Heart", 30f);
+            }
+            else
+            {
+                Debug.LogError("Heart prefab not assigned in GameManager!");
+            }
+        }
+        else
+        {
+            Debug.Log("Drop table already initialized, skipping initialization");
+        }
     }
 }

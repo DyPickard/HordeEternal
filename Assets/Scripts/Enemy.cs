@@ -59,6 +59,11 @@ public class Enemy : MonoBehaviour
 
     private void DestroyEnemy()
     {
+        if (DropTableManager.Instance != null)
+        {
+            DropTableManager.Instance.HandleEnemyDeath(transform.position);
+        }
+
         Destroy(gameObject);
         player.GetComponent<PlayerLevel>().IncreaseExp(expValue);
     }
