@@ -1,11 +1,14 @@
 using UnityEngine;
 using System.Collections;
+using System;
 
 public class FlashOnHit : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;
     private Color originalColor;
     private Coroutine flashCoroutine;
+
+    public event Action OnFlashComplete;
 
     void Awake()
     {
@@ -44,5 +47,12 @@ public class FlashOnHit : MonoBehaviour
 
         spriteRenderer.color = originalColor;
         flashCoroutine = null;
+
+        OnFlashComplete?.Invoke();
+    }
+
+    public void UpdateOriginalColor(Color newColor)
+    {
+        originalColor = newColor;
     }
 }

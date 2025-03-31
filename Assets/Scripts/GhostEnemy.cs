@@ -1,9 +1,12 @@
 using UnityEngine;
+using System.Collections;
 
 public class GhostEnemy : Enemy
 {
     private Animator animator;
     private Vector2 previousPosition;
+    private const float GHOST_ALPHA = 0.7f;
+    private SpriteRenderer spriteRenderer;
 
     protected void Start()
     {
@@ -15,14 +18,9 @@ public class GhostEnemy : Enemy
 
         animator = GetComponent<Animator>();
         previousPosition = transform.position;
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
-        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-        if (spriteRenderer != null)
-        {
-            Color ghostColor = spriteRenderer.color;
-            ghostColor.a = 0.7f;
-            spriteRenderer.color = ghostColor;
-        }
+        SetGhostTransparency();
 
         if (rb != null)
         {
@@ -35,11 +33,34 @@ public class GhostEnemy : Enemy
                 col.isTrigger = true;
             }
         }
+
+        if (flashEffect != null)
+        {
+            flashEffect.OnFlashComplete += SetGhostTransparency;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (flashEffect != null)
+        {
+            flashEffect.OnFlashComplete -= SetGhostTransparency;
+        }
+    }
+
+    private void SetGhostTransparency()
+    {
+        if (spriteRenderer != null)
+        {
+            Color ghostColor = spriteRenderer.color;
+            ghostColor.a = GHOST_ALPHA;
+            spriteRenderer.color = ghostColor;
+        }
     }
 
     protected override void FixedUpdate()
     {
-        if (player == null) return;
+        if (player == null || isDying) return;
 
         previousPosition = rb.position;
 
@@ -55,5 +76,11 @@ public class GhostEnemy : Enemy
             float speed = ((Vector2)transform.position - previousPosition).magnitude / Time.fixedDeltaTime;
             animator.SetFloat("Speed", speed);
         }
+    }
+
+    protected override IEnumerator DeathSequence()
+    {
+        yield return StartCoroutine(base.DeathSequence());
+        SetGhostTransparency();
     }
 }
