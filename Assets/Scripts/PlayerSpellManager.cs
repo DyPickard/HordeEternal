@@ -8,6 +8,8 @@ public class PlayerSpellManager : MonoBehaviour
     public Sprite fireBoltIcon; // Icon to display
     public Sprite utilitySpellIcon;
     public GameObject fireBoltProjectilePrefab; // Drag your projectile prefab here
+    public GameObject lightningBoltProjectilePrefab;
+    public GameObject iceBoltProjectilePrefab;
     public GameObject utilitySpellPrefab;
 
     private WeaponSpell currentSpell;

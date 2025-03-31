@@ -56,7 +56,10 @@ public class SpellPickup : MonoBehaviour
                 return typeof(Fire_Bolt);
             case SpellType.SpellShield:
                 return typeof(ShieldSpell);
-            // Add more spell types as needed
+            case SpellType.LightningBolt:
+                return typeof(Lightning_Bolt);
+            case SpellType.IceBolt:
+                return typeof(Ice_Bolt);
             default:
                 Debug.LogWarning("Unknown spell type, defaulting to Fire_Bolt.");
                 return typeof(Fire_Bolt);
@@ -67,6 +70,8 @@ public class SpellPickup : MonoBehaviour
 public enum SpellType
 {
     FireBolt,
-    SpellShield
+    SpellShield,
+    LightningBolt,
+    IceBolt
     // Add more entries here as you add more spells
 }

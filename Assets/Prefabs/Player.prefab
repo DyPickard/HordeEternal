@@ -360,6 +360,8 @@ MonoBehaviour:
   fireBoltIcon: {fileID: 5886088462921678541, guid: 199380c6e8fae194688d7e0fe739f1e8, type: 3}
   utilitySpellIcon: {fileID: 0}
   fireBoltProjectilePrefab: {fileID: 9046184501511880992, guid: e64416e41d4017d40a6c27a6a06c0035, type: 3}
+  lightningBoltProjectilePrefab: {fileID: 9046184501511880992, guid: ae7f43b6ba8d60245a34088673d90da6, type: 3}
+  iceBoltProjectilePrefab: {fileID: 9046184501511880992, guid: 3d046301ae66e664099af8d0b39ac697, type: 3}
   utilitySpellPrefab: {fileID: 0}
 --- !u!1 &5689051020855681404
 GameObject:
@@ -457,6 +459,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2910980703391790720}
+  - component: {fileID: 6849011998545556357}
   m_Layer: 0
   m_Name: Fireposition
   m_TagString: Untagged
@@ -479,3 +482,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8333545968691041550}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6849011998545556357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6073545910066822463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e30db40ec06a8a545b0cf9c5bdeb549f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerLevel: {fileID: 4777083866799463572}
+  baserate: 10
+  damage: 1
+  targets: 1
+  timer: 0
+  firePosition: {fileID: 2910980703391790720}
+  lightning_proj: {fileID: 9046184501511880992, guid: ae7f43b6ba8d60245a34088673d90da6, type: 3}
