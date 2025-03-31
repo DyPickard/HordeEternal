@@ -3,9 +3,13 @@ using UnityEngine.Tilemaps;
 
 public class EnemySpawner : MonoBehaviour
 {
+    [Header("Enemy Prefabs")]
     [SerializeField] private GameObject skeletonPrefab;
     [SerializeField] private GameObject ogrePrefab;
     [SerializeField] private GameObject ghostPrefab;
+    [SerializeField] private GameObject dragonPrefab;
+
+    [Header("Spawn Settings")]
     [SerializeField] private Transform player;
     [SerializeField] private Camera mainCamera;
     [SerializeField] private float spawnInterval = 2f;
@@ -17,6 +21,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField][Range(0, 100)] private float skeletonSpawnWeight = 70f;
     [SerializeField][Range(0, 100)] private float ogreSpawnWeight = 20f;
     [SerializeField][Range(0, 100)] private float ghostSpawnWeight = 10f;
+    [SerializeField][Range(0, 100)] private float dragonSpawnWeight = 5f;
     [SerializeField] private GameClock gameClock;
     private float timer;
 
@@ -37,7 +42,7 @@ public class EnemySpawner : MonoBehaviour
         Vector3 spawnPos = GetRandomSpawnPosition();
 
         // Randomly choose enemy type based on weights
-        float totalWeight = skeletonSpawnWeight + ogreSpawnWeight + ghostSpawnWeight;
+        float totalWeight = skeletonSpawnWeight + ogreSpawnWeight + ghostSpawnWeight + dragonSpawnWeight;
         float randomValue = Random.Range(0f, totalWeight);
 
         GameObject enemyToSpawn;
@@ -49,10 +54,14 @@ public class EnemySpawner : MonoBehaviour
         {
             enemyToSpawn = ogrePrefab;
         }
-        else
+        else if (randomValue <= skeletonSpawnWeight + ogreSpawnWeight + ghostSpawnWeight)
         {
             enemyToSpawn = ghostPrefab;
             spawnPos = GetRandomGhostSpawnPosition();
+        }
+        else
+        {
+            enemyToSpawn = dragonPrefab;
         }
 
         Instantiate(enemyToSpawn, spawnPos, Quaternion.identity);
