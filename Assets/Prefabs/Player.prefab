@@ -321,7 +321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aeea7bd1d1db35459ca8eea9baf535f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 3
   animator: {fileID: 5277128640243032897}
   collisionTilemap: {fileID: 0}
 --- !u!114 &4777083866799463572

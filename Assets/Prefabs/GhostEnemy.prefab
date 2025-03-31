@@ -10,13 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 2098973374017470093}
   - component: {fileID: 2282254700980570968}
-  - component: {fileID: -3904067868279942134}
+  - component: {fileID: 4104568410826475188}
   - component: {fileID: 5229854832631420445}
   - component: {fileID: 6234275598218516506}
   - component: {fileID: 1329840511959065068}
   - component: {fileID: 2390691139727868174}
   m_Layer: 0
-  m_Name: EnemySkeleton
+  m_Name: GhostEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -9.15, y: 1.4159292, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -81,7 +81,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 45966500872709769, guid: 9736afe08c65e7c4687eb0a9743072c8, type: 3}
+  m_Sprite: {fileID: -42075097720280343, guid: 1b405f777df2b91449eae1c68e8e1782, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -92,7 +92,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-3904067868279942134
+--- !u!114 &4104568410826475188
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -101,14 +101,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 803749037727216208}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e268dfa59bf24614d8f9c0b3f07ee3a2, type: 3}
+  m_Script: {fileID: 11500000, guid: cdc050c2478c2ee4997a6c725f59aaa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2
-  expValue: 1
+  expValue: 2
   health: 1
-  damage: 1
-  deathAnimationDuration: 1.5
+  damage: 2
+  deathAnimationDuration: 1
 --- !u!61 &5229854832631420445
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -147,7 +147,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.34375, y: 0.515625}
+    oldSize: {x: 1.06, y: 1.28}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -192,7 +192,7 @@ Animator:
   m_GameObject: {fileID: 803749037727216208}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: bc12b72b41095a247b6885bdf263a32d, type: 2}
+  m_Controller: {fileID: 9100000, guid: 5196afe48044ba04f88d0447f6aa1f83, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

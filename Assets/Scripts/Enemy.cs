@@ -1,18 +1,24 @@
 using UnityEngine;
+using System.Collections;
 
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(FlashOnHit))]
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 1f;
-    [SerializeField] private int expValue = 1;
-    [SerializeField] private int health = 1;
-    [SerializeField] private int damage = 1;
+    [SerializeField] protected float moveSpeed = 1f;
+    [SerializeField] protected int expValue = 1;
+    [SerializeField] protected int health = 1;
+    [SerializeField] protected int damage = 1;
+    [SerializeField] protected float deathAnimationDuration = 0.5f;
 
-    private GameObject player;
-    private Transform playerTransform;
-    private Rigidbody2D rb;
+    protected GameObject player;
+    protected Transform playerTransform;
+    protected Rigidbody2D rb;
+    protected FlashOnHit flashEffect;
+    protected Animator animator;
+    protected bool isDying = false;
 
-    void Start()
+    protected virtual void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
@@ -21,11 +27,13 @@ public class Enemy : MonoBehaviour
         }
 
         rb = GetComponent<Rigidbody2D>();
+        flashEffect = GetComponent<FlashOnHit>();
+        animator = GetComponent<Animator>();
     }
 
-    void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
-        if (player == null) return;
+        if (player == null || isDying) return;
 
         // Move toward player using physics
         Vector3 direction = (playerTransform.position - transform.position).normalized;
@@ -38,8 +46,10 @@ public class Enemy : MonoBehaviour
         transform.localScale = scale;
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    protected virtual void OnTriggerEnter2D(Collider2D other)
     {
+        if (isDying) return;
+
         Debug.Log("Enemy Triggered with: " + other.name);
         if (other.CompareTag("Player"))
         {
@@ -57,20 +67,69 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void DestroyEnemy()
+    protected virtual void DestroyEnemy()
     {
+        if (!isDying)
+        {
+            StartCoroutine(DeathSequence());
+        }
+    }
+
+    protected virtual IEnumerator DeathSequence()
+    {
+        isDying = true;
+        Debug.Log($"Starting death sequence for {gameObject.name}");
+
+        // Disable all colliders
+        Collider2D[] colliders = GetComponents<Collider2D>();
+        foreach (Collider2D col in colliders)
+        {
+            col.enabled = false;
+        }
+
+        if (rb != null)
+        {
+            rb.simulated = false;
+        }
+
+        if (animator != null)
+        {
+            animator.SetBool("isDead", true);
+            Debug.Log($"Set isDead to true on {gameObject.name}");
+
+            yield return new WaitForSeconds(0.1f);
+
+            bool isInKilledState = animator.GetCurrentAnimatorStateInfo(0).IsName("Killed");
+            Debug.Log($"Is in Killed state: {isInKilledState}");
+
+            yield return new WaitForSeconds(deathAnimationDuration);
+        }
+
+        Debug.Log($"Death sequence complete for {gameObject.name}, destroying object");
+
+        if (player != null)
+        {
+            player.GetComponent<PlayerLevel>().IncreaseExp(expValue);
+        }
+
         if (DropTableManager.Instance != null)
         {
             DropTableManager.Instance.HandleEnemyDeath(transform.position);
         }
 
         Destroy(gameObject);
-        player.GetComponent<PlayerLevel>().IncreaseExp(expValue);
     }
 
-    private void TakeDamage(int damage)
+    protected virtual void TakeDamage(int damage)
     {
+        if (isDying) return;
+
         health -= damage;
+        if (flashEffect != null)
+        {
+            flashEffect.Flash();
+        }
+
         if (health <= 0)
         {
             DestroyEnemy();
