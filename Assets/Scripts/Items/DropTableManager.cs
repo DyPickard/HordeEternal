@@ -43,6 +43,9 @@ public class DropTableManager : MonoBehaviour
     public void HandleEnemyDeath(Vector3 deathPosition)
     {
         Debug.Log($"Handling enemy death at {deathPosition}. Items in drop table: {dropTable.Count}");
+
+        List<DroppableItem> possibleDrops = new List<DroppableItem>();
+
         foreach (DroppableItem item in dropTable)
         {
             if (!item.isEnabled)
@@ -53,13 +56,25 @@ public class DropTableManager : MonoBehaviour
 
             float randomRoll = Random.Range(0f, 100f);
             Debug.Log($"Rolling for {item.itemName}: got {randomRoll}, need <= {item.dropChance}");
+
             if (randomRoll <= item.dropChance)
             {
-                Vector3 randomOffset = Random.insideUnitCircle * 0.5f;
-                Vector3 spawnPosition = deathPosition + new Vector3(randomOffset.x, randomOffset.y, 0);
-                Instantiate(item.itemPrefab, spawnPosition, Quaternion.identity);
-                Debug.Log($"Spawned {item.itemName} at {spawnPosition}");
+                possibleDrops.Add(item);
             }
+        }
+
+        if (possibleDrops.Count > 0)
+        {
+            DroppableItem selectedDrop = possibleDrops[Random.Range(0, possibleDrops.Count)];
+            Vector3 randomOffset = Random.insideUnitCircle * 0.5f;
+            Vector3 spawnPosition = deathPosition + new Vector3(randomOffset.x, randomOffset.y, 0);
+
+            Debug.Log($"Spawning {selectedDrop.itemName} at {spawnPosition}");
+            Instantiate(selectedDrop.itemPrefab, spawnPosition, Quaternion.identity);
+        }
+        else
+        {
+            Debug.Log("No items were selected to drop");
         }
     }
 

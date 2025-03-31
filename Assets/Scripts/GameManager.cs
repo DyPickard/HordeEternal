@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public AudioClip gameOverMusic;
     public DropTableManager dropTableManager;
     public GameObject heartPrefab;
+    public GameObject spellShieldPrefab;
 
     public PlayerLevel playerLevel;
     private const int maxLives = 6;
@@ -268,6 +269,7 @@ public class GameManager : MonoBehaviour
         if (dropTableManager.GetDropTableCount() == 0)
         {
             Debug.Log("Initializing drop table for the first time");
+
             if (heartPrefab != null)
             {
                 dropTableManager.AddItemToDropTable(heartPrefab, "Heart", 30f);
@@ -275,6 +277,15 @@ public class GameManager : MonoBehaviour
             else
             {
                 Debug.LogError("Heart prefab not assigned in GameManager!");
+            }
+
+            if (spellShieldPrefab != null)
+            {
+                dropTableManager.AddItemToDropTable(spellShieldPrefab, "SpellShield", 20f);
+            }
+            else
+            {
+                Debug.LogError("SpellShield prefab not assigned in GameManager!");
             }
         }
         else
