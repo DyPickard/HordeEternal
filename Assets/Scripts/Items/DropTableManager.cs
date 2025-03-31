@@ -70,7 +70,11 @@ public class DropTableManager : MonoBehaviour
             Vector3 spawnPosition = deathPosition + new Vector3(randomOffset.x, randomOffset.y, 0);
 
             Debug.Log($"Spawning {selectedDrop.itemName} at {spawnPosition}");
-            Instantiate(selectedDrop.itemPrefab, spawnPosition, Quaternion.identity);
+            GameObject spawnedItem = Instantiate(selectedDrop.itemPrefab, spawnPosition, Quaternion.identity);
+
+            ItemLifetime lifetime = spawnedItem.AddComponent<ItemLifetime>();
+            lifetime.totalLifetime = 10f;
+            lifetime.fadeStartTime = 3f;
         }
         else
         {
