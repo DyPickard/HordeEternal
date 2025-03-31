@@ -54,8 +54,10 @@ MonoBehaviour:
   spawnDistanceFromCamera: 2
   groundTilemap: {fileID: 0}
   collisionTilemap: {fileID: 0}
+  dragonSpawnInterval: 120
+  enableTimedDragonSpawns: 1
   skeletonSpawnWeight: 70
   ogreSpawnWeight: 20
   ghostSpawnWeight: 10
-  dragonSpawnWeight: 47.1
-  gameClock: {fileID: 0}
+  dragonSpawnWeight: 0
+  gameClock: {fileID: 8554104664824064383, guid: a23f421b3a087aa48b82f1ce68e71979, type: 3}

@@ -17,13 +17,27 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private Tilemap groundTilemap;
     [SerializeField] private Tilemap collisionTilemap;
 
+    [Header("Dragon Timer Settings")]
+    [SerializeField] private float dragonSpawnInterval = 120f; // 2 minutes in seconds
+    [SerializeField] private bool enableTimedDragonSpawns = true;
+    private float dragonTimer;
+    private float lastDebugTime;
+    private float debugInterval = 10f; // Show debug message every 10 seconds
+
     [Header("Spawn Weights")]
     [SerializeField][Range(0, 100)] private float skeletonSpawnWeight = 70f;
     [SerializeField][Range(0, 100)] private float ogreSpawnWeight = 20f;
     [SerializeField][Range(0, 100)] private float ghostSpawnWeight = 10f;
-    [SerializeField][Range(0, 100)] private float dragonSpawnWeight = 5f;
+    [SerializeField][Range(0, 100)] private float dragonSpawnWeight = 0f; // Set to 0 by default
     [SerializeField] private GameClock gameClock;
     private float timer;
+
+    void Start()
+    {
+        dragonTimer = dragonSpawnInterval; // Start with a full timer
+        lastDebugTime = dragonTimer;
+        Debug.Log($"Dragon will spawn in {Mathf.CeilToInt(dragonTimer)} seconds");
+    }
 
     void Update()
     {
@@ -34,6 +48,35 @@ public class EnemySpawner : MonoBehaviour
         {
             SpawnEnemy();
             timer = 0f;
+        }
+
+        if (enableTimedDragonSpawns)
+        {
+            dragonTimer -= Time.deltaTime;
+
+            if (dragonTimer <= lastDebugTime - debugInterval)
+            {
+                lastDebugTime = Mathf.Floor(dragonTimer / debugInterval) * debugInterval;
+                Debug.Log($"Dragon spawning in {Mathf.CeilToInt(dragonTimer)} seconds");
+            }
+
+            if (dragonTimer <= 0)
+            {
+                SpawnDragon();
+                dragonTimer = dragonSpawnInterval; // Reset timer
+                lastDebugTime = dragonTimer;
+                Debug.Log("Dragon spawned! Next dragon will spawn in " + dragonSpawnInterval + " seconds");
+            }
+        }
+    }
+
+    private void SpawnDragon()
+    {
+        Vector3 spawnPos = GetRandomSpawnPosition();
+        if (dragonPrefab != null)
+        {
+            Debug.Log("Spawning Dragon (Timed Spawn)");
+            Instantiate(dragonPrefab, spawnPos, Quaternion.identity);
         }
     }
 
@@ -62,6 +105,7 @@ public class EnemySpawner : MonoBehaviour
         else
         {
             enemyToSpawn = dragonPrefab;
+            Debug.Log("Spawning Dragon (Random Spawn)");
         }
 
         Instantiate(enemyToSpawn, spawnPos, Quaternion.identity);
