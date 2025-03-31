@@ -15,10 +15,11 @@ public class EnemySpawner : MonoBehaviour
 
     void Update()
     {
+        TimerSpawnIntervalChange(gameClock.gameTime);
+
         timer += Time.deltaTime;
         if (timer >= spawnInterval)
         {
-            TimerSpawnIntervalChange(gameClock.gameTime);
             SpawnEnemy();
             timer = 0f;
         }
@@ -32,7 +33,7 @@ public class EnemySpawner : MonoBehaviour
 
     void TimerSpawnIntervalChange(int seconds)
     {
-        switch(seconds)
+        switch (seconds)
         {
             case < 60:
                 spawnInterval = 2f;
