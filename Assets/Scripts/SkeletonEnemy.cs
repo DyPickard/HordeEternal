@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class SkeletonEnemy : Enemy
 {
-    protected void Start()
+    protected override void Start()
     {
         base.Start();
 

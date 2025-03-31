@@ -2,10 +2,9 @@ using UnityEngine;
 
 public class OgreEnemy : Enemy
 {
-    private Animator animator;
     private Vector2 previousPosition;
 
-    protected void Start()
+    protected override void Start()
     {
         base.Start();
 
@@ -13,7 +12,6 @@ public class OgreEnemy : Enemy
         health = 5;
         expValue = 3;
 
-        animator = GetComponent<Animator>();
         previousPosition = transform.position;
     }
 

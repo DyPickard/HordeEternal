@@ -104,30 +104,6 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    void TimerSpawnIntervalChange(int seconds)
-    {
-        switch (seconds)
-        {
-            case < 60:
-                spawnInterval = 2f;
-                break;
-            case < 120:
-                spawnInterval = 1.8f;
-                break;
-            case < 180:
-                spawnInterval = 1.6f;
-                break;
-            case < 240:
-                spawnInterval = 1.4f;
-                break;
-            case < 300:
-                spawnInterval = 1.2f;
-                break;
-            default:
-                break;
-        }
-    }
-
     Vector3 GetRandomSpawnPosition()
     {
         Vector3 cameraPos = mainCamera.transform.position;

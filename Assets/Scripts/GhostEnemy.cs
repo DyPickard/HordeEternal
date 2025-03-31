@@ -3,12 +3,11 @@ using System.Collections;
 
 public class GhostEnemy : Enemy
 {
-    private Animator animator;
     private Vector2 previousPosition;
     private const float GHOST_ALPHA = 0.7f;
     private SpriteRenderer spriteRenderer;
 
-    protected void Start()
+    protected override void Start()
     {
         base.Start();
 
@@ -16,7 +15,6 @@ public class GhostEnemy : Enemy
         health = 2;
         expValue = 2;
 
-        animator = GetComponent<Animator>();
         previousPosition = transform.position;
         spriteRenderer = GetComponent<SpriteRenderer>();
 
