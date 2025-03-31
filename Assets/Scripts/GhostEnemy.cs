@@ -27,7 +27,13 @@ public class GhostEnemy : Enemy
         if (rb != null)
         {
             rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
-            rb.excludeLayers = ~LayerMask.GetMask("Player");
+            rb.excludeLayers = LayerMask.GetMask("Ground", "Collision");
+
+            Collider2D col = GetComponent<Collider2D>();
+            if (col != null)
+            {
+                col.isTrigger = true;
+            }
         }
     }
 
