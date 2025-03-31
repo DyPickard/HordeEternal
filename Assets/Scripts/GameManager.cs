@@ -19,6 +19,10 @@ public class GameManager : MonoBehaviour
     public GameObject chargePickupPrefab;
     public GameObject teleportPickupPrefab;
 
+    public GameObject fireBoltPickupPrefab;
+    public GameObject iceBoltPickupPrefab;
+    public GameObject lightningBoltPickupPrefab;
+
     public PlayerLevel playerLevel;
     private const int maxLives = 6;
     [SerializeField] private int currentLives = 3;
@@ -303,6 +307,19 @@ public class GameManager : MonoBehaviour
             if (teleportPickupPrefab != null)
             {
                 dropTableManager.AddItemToDropTable(teleportPickupPrefab, "Teleport", 15f);
+            }
+
+            if (fireBoltPickupPrefab != null)
+            {
+                dropTableManager.AddItemToDropTable(fireBoltPickupPrefab, "FireBolt", 15f);
+            }
+            if (iceBoltPickupPrefab != null)
+            {
+                dropTableManager.AddItemToDropTable(iceBoltPickupPrefab, "IceBolt", 15f);
+            }
+            if (lightningBoltPickupPrefab != null)
+            {
+                dropTableManager.AddItemToDropTable(lightningBoltPickupPrefab, "LightningBolt", 15f);
             }
         }
         else
