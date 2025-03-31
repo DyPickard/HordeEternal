@@ -14,7 +14,7 @@ public class SpellPickup : MonoBehaviour
 
         if (isUtility && manager.HasUtilitySpell())
         {
-            Debug.Log("Cannot pick up shield - already have a utility spell equipped!");
+            Debug.Log($"Cannot pick up {itemName} - already have a utility spell equipped!");
             return;
         }
 
@@ -55,8 +55,11 @@ public class SpellPickup : MonoBehaviour
             case SpellType.FireBolt:
                 return typeof(Fire_Bolt);
             case SpellType.SpellShield:
-                return typeof(ShieldSpell);
-            // Add more spell types as needed
+                return typeof(SpellShield);
+            case SpellType.FireRateBooster:
+                return typeof(FireRateBooster);
+            case SpellType.Shockwave:
+                return typeof(Shockwave);
             default:
                 Debug.LogWarning("Unknown spell type, defaulting to Fire_Bolt.");
                 return typeof(Fire_Bolt);
@@ -67,6 +70,7 @@ public class SpellPickup : MonoBehaviour
 public enum SpellType
 {
     FireBolt,
-    SpellShield
-    // Add more entries here as you add more spells
+    SpellShield,
+    FireRateBooster,
+    Shockwave
 }
