@@ -9,9 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3986231716161904890}
+  - component: {fileID: -1753311331070595423}
   m_Layer: 0
   m_Name: SpellShieldPickup
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32,6 +33,22 @@ Transform:
   - {fileID: 4362475840148187634}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-1753311331070595423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765636613629231801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d4878ca352e19040be4d788d886300f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  icon: {fileID: 5482799609737554276, guid: ed100029d1840cc45b3a24a91ad7826f, type: 3}
+  isUtility: 1
+  spellType: 1
+  itemName: Shield
 --- !u!1 &3467888615724848229
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,3 +189,4 @@ MonoBehaviour:
   icon: {fileID: 5482799609737554276, guid: ed100029d1840cc45b3a24a91ad7826f, type: 3}
   isUtility: 1
   spellType: 1
+  itemName: 

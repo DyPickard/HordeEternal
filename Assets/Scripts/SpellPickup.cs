@@ -5,18 +5,45 @@ public class SpellPickup : MonoBehaviour
     public Sprite icon;
     public bool isUtility;
     public SpellType spellType;
+    public string itemName;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         PlayerSpellManager manager = other.GetComponent<PlayerSpellManager>();
         if (manager == null) return;
 
+        if (isUtility && manager.HasUtilitySpell())
+        {
+            Debug.Log("Cannot pick up shield - already have a utility spell equipped!");
+            return;
+        }
+
+        InventorySlotType slotType = isUtility ? InventorySlotType.Utility : InventorySlotType.Weapon;
+
+        if (InventoryManager.Instance != null && !InventoryManager.Instance.CanPickupItem(itemName, slotType))
+        {
+            Debug.Log($"Cannot pick up {itemName} - already have one equipped!");
+            return;
+        }
+
         System.Type typeToEquip = GetSpellType();
 
         if (isUtility)
+        {
             manager.EquipUtilitySpell(icon, typeToEquip);
+            if (InventoryManager.Instance != null)
+            {
+                InventoryManager.Instance.EquipItem(itemName, InventorySlotType.Utility);
+            }
+        }
         else
+        {
             manager.EquipWeaponSpell(icon, typeToEquip);
+            if (InventoryManager.Instance != null)
+            {
+                InventoryManager.Instance.EquipItem(itemName, InventorySlotType.Weapon);
+            }
+        }
 
         Destroy(gameObject);
     }
