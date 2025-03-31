@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public UIManager uiManager;
     public AudioClip backgroundMusic;
     public AudioClip gameOverMusic;
-    public DropTableManager dropTableManager;
+    public GameClock gameClock; public DropTableManager dropTableManager;
     public GameObject heartPrefab;
     public GameObject spellShieldPrefab;
 
@@ -27,7 +27,6 @@ public class GameManager : MonoBehaviour
     private const int maxLives = 6;
     [SerializeField] private int currentLives = 3;
     [SerializeField] private GameObject player;
-
     private Coroutine flashCoroutine;
     private Color originalColor;
     private SpriteRenderer playerSpriteRenderer;
@@ -53,6 +52,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        gameClock = FindObjectOfType<GameClock>();
         uiManager = FindObjectOfType<UIManager>();
         playerLevel = FindObjectOfType<PlayerLevel>();
         dropTableManager = FindObjectOfType<DropTableManager>();
@@ -62,6 +62,7 @@ public class GameManager : MonoBehaviour
             Debug.LogError("DropTableManager not found in scene! Please add it to your game scene.");
         }
 
+        gameClock.SendMessage("StartGame");
         if (playerLevel != null)
         {
             playerLevel.InitializeUI(uiManager);
@@ -167,6 +168,7 @@ public class GameManager : MonoBehaviour
     void GameOver()
     {
         Debug.Log("Game Over!");
+        gameClock.SendMessage("EndGame");
         AudioManager.Instance.StopMusic();
         AudioManager.Instance.PlayMusic(gameOverMusic);
         uiManager.GameOver();
