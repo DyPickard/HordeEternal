@@ -17,11 +17,13 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField][Range(0, 100)] private float skeletonSpawnWeight = 70f;
     [SerializeField][Range(0, 100)] private float ogreSpawnWeight = 20f;
     [SerializeField][Range(0, 100)] private float ghostSpawnWeight = 10f;
-
+    [SerializeField] private GameClock gameClock;
     private float timer;
 
     void Update()
     {
+        TimerSpawnIntervalChange(gameClock.gameTime);
+
         timer += Time.deltaTime;
         if (timer >= spawnInterval)
         {
@@ -76,6 +78,54 @@ public class EnemySpawner : MonoBehaviour
         Vector3 worldPos = new Vector3(x, y, 0) + cameraPos;
         worldPos.z = 0f;
         return worldPos;
+    }
+
+    void TimerSpawnIntervalChange(int seconds)
+    {
+        switch (seconds)
+        {
+            case < 60:
+                spawnInterval = 2f;
+                break;
+            case < 120:
+                spawnInterval = 1.8f;
+                break;
+            case < 180:
+                spawnInterval = 1.6f;
+                break;
+            case < 240:
+                spawnInterval = 1.4f;
+                break;
+            case < 300:
+                spawnInterval = 1.2f;
+                break;
+            default:
+                break;
+        }
+    }
+
+    void TimerSpawnIntervalChange(int seconds)
+    {
+        switch (seconds)
+        {
+            case < 60:
+                spawnInterval = 2f;
+                break;
+            case < 120:
+                spawnInterval = 1.8f;
+                break;
+            case < 180:
+                spawnInterval = 1.6f;
+                break;
+            case < 240:
+                spawnInterval = 1.4f;
+                break;
+            case < 300:
+                spawnInterval = 1.2f;
+                break;
+            default:
+                break;
+        }
     }
 
     Vector3 GetRandomSpawnPosition()
