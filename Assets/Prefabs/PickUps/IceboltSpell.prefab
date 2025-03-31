@@ -8,19 +8,18 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1303958953137057556}
-  - component: {fileID: 6208033805255085536}
-  - component: {fileID: 7289281463219043680}
-  - component: {fileID: 4010422859714776782}
-  - component: {fileID: 6933681225741515404}
-  m_Layer: 0
+  - component: {fileID: 7422424748748041031}
+  - component: {fileID: 7488368788442891376}
+  - component: {fileID: 9095293449118335487}
+  - component: {fileID: 8421583476160797752}
+  m_Layer: 6
   m_Name: IceboltSpell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1303958953137057556
+--- !u!4 &7422424748748041031
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -35,7 +34,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &6208033805255085536
+--- !u!212 &7488368788442891376
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -90,7 +89,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &7289281463219043680
+--- !u!61 &9095293449118335487
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -136,7 +135,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.25, y: 0.25}
   m_EdgeRadius: 0
---- !u!114 &4010422859714776782
+--- !u!114 &8421583476160797752
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -151,17 +150,3 @@ MonoBehaviour:
   icon: {fileID: -2337028530756893839, guid: ed100029d1840cc45b3a24a91ad7826f, type: 3}
   spellType: 1
   itemName: Ice Bolt
---- !u!114 &6933681225741515404
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9204899263272398910}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33fc953477f19dc4aa7e6bb8dceb568f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  totalLifetime: 10
-  fadeStartTime: 3

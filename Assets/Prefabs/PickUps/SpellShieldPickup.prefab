@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3382220031302038344}
   - component: {fileID: -3404114185085252164}
   - component: {fileID: -1753311331070595423}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SpellShieldPickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 8791088536162262763}
   - component: {fileID: 2527558381793280861}
   - component: {fileID: 2081213320396239757}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}

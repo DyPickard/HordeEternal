@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3648332526824014324}
   - component: {fileID: 7358507899936256088}
   - component: {fileID: 1575124598670545620}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DoubleFireRateSpell
   m_TagString: Untagged
   m_Icon: {fileID: 0}

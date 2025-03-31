@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5986893092622931829}
   - component: {fileID: 7747967531688909003}
   - component: {fileID: 1712682473088498192}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BurstSpell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
