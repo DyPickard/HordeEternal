@@ -372,7 +372,17 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Sprite-ogro5_0: 2709365068548380907
+      Sprite-ogro5_1: 1428615991622674652
+      Sprite-ogro5_2: -5869304480797295492
+      Sprite-ogro5_3: 4021412158673169593
+      Sprite-ogro5_4: 1852329589051656857
+      Sprite-ogro5_5: -4042563495665375917
+      Sprite-ogro5_6: 8369534836632560618
+      Sprite-ogro5_7: -8391906000090812929
+      Sprite-ogro5_8: -6931215193504157459
+      Sprite-ogro5_9: -2051520076449501172
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
