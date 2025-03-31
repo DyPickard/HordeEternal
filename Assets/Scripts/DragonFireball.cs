@@ -4,7 +4,6 @@ public class DragonFireball : MonoBehaviour
 {
     [SerializeField] private GameObject impactEffectPrefab;
     [SerializeField] private float lifetime = 3f;
-    private int damage = 1;
 
     private void Start()
     {

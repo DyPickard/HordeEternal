@@ -15,14 +15,13 @@ public class PlayerSpellManager : MonoBehaviour
 
     void Start()
     {
+        uiManager = UnityEngine.Object.FindAnyObjectByType<UIManager>();
         StartCoroutine(DelayedEquip());
     }
 
     IEnumerator DelayedEquip()
     {
         yield return null;
-
-        uiManager = FindObjectOfType<UIManager>();
 
         if (uiManager != null)
         {

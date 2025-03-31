@@ -52,10 +52,10 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        gameClock = FindObjectOfType<GameClock>();
-        uiManager = FindObjectOfType<UIManager>();
-        playerLevel = FindObjectOfType<PlayerLevel>();
-        dropTableManager = FindObjectOfType<DropTableManager>();
+        gameClock = UnityEngine.Object.FindAnyObjectByType<GameClock>();
+        uiManager = UnityEngine.Object.FindAnyObjectByType<UIManager>();
+        playerLevel = UnityEngine.Object.FindAnyObjectByType<PlayerLevel>();
+        dropTableManager = UnityEngine.Object.FindAnyObjectByType<DropTableManager>();
 
         if (dropTableManager == null)
         {
