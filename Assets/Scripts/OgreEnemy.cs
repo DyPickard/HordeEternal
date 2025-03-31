@@ -26,7 +26,7 @@ public class OgreEnemy : Enemy
         if (animator != null)
         {
             float speed = ((Vector2)transform.position - previousPosition).magnitude / Time.fixedDeltaTime;
-            animator.SetFloat("Speed", speed);
+            animator.SetBool("isWalking", speed > 0.01f);
         }
     }
 

@@ -57,8 +57,13 @@ public abstract class MovementAbility : MonoBehaviour
         }
     }
 
+    public void StartCooldownOnPickup()
+    {
+        StartCooldown();
+    }
+
     public abstract void UseAbility();
-    
+
     protected virtual void OnAbilityReady()
     {
         Debug.Log($"{GetType().Name} is ready!");

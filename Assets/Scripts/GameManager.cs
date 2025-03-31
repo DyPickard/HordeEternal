@@ -11,7 +11,18 @@ public class GameManager : MonoBehaviour
     public UIManager uiManager;
     public AudioClip backgroundMusic;
     public AudioClip gameOverMusic;
-    public GameClock gameClock;
+    public GameClock gameClock; public DropTableManager dropTableManager;
+    public GameObject heartPrefab;
+    public GameObject spellShieldPrefab;
+
+    public GameObject dashPickupPrefab;
+    public GameObject chargePickupPrefab;
+    public GameObject teleportPickupPrefab;
+
+    public GameObject fireBoltPickupPrefab;
+    public GameObject iceBoltPickupPrefab;
+    public GameObject lightningBoltPickupPrefab;
+
     public PlayerLevel playerLevel;
     private const int maxLives = 6;
     [SerializeField] private int currentLives = 3;
@@ -44,6 +55,12 @@ public class GameManager : MonoBehaviour
         gameClock = FindObjectOfType<GameClock>();
         uiManager = FindObjectOfType<UIManager>();
         playerLevel = FindObjectOfType<PlayerLevel>();
+        dropTableManager = FindObjectOfType<DropTableManager>();
+
+        if (dropTableManager == null)
+        {
+            Debug.LogError("DropTableManager not found in scene! Please add it to your game scene.");
+        }
 
         gameClock.SendMessage("StartGame");
         if (playerLevel != null)
@@ -78,6 +95,11 @@ public class GameManager : MonoBehaviour
                 AudioManager.Instance.PlayMusic(backgroundMusic);
             }
         }
+
+        if (dropTableManager != null)
+        {
+            InitializeDropTable();
+        }
     }
     void OnValidate()
     {
@@ -93,7 +115,7 @@ public class GameManager : MonoBehaviour
         uiManager.UpdateLives(currentLives);
     }
 
-    void GetLife()
+    public void GetLife()
     {
         if (currentLives < maxLives)
         {
@@ -250,5 +272,61 @@ public class GameManager : MonoBehaviour
         // Update the UI icon
         uiManager.UpdateMovementIcon(currentAbilityType);
         Debug.Log($"Movement ability switched via UI to {currentAbilityType}");
+    }
+
+    private void InitializeDropTable()
+    {
+        if (dropTableManager.GetDropTableCount() == 0)
+        {
+            Debug.Log("Initializing drop table for the first time");
+
+            if (heartPrefab != null)
+            {
+                dropTableManager.AddItemToDropTable(heartPrefab, "Heart", 30f);
+            }
+            else
+            {
+                Debug.LogError("Heart prefab not assigned in GameManager!");
+            }
+
+            if (spellShieldPrefab != null)
+            {
+                dropTableManager.AddItemToDropTable(spellShieldPrefab, "SpellShield", 20f);
+            }
+            else
+            {
+                Debug.LogError("SpellShield prefab not assigned in GameManager!");
+            }
+
+            if (dashPickupPrefab != null)
+            {
+                dropTableManager.AddItemToDropTable(dashPickupPrefab, "QuickDash", 15f);
+            }
+            if (chargePickupPrefab != null)
+            {
+                dropTableManager.AddItemToDropTable(chargePickupPrefab, "Charge", 15f);
+            }
+            if (teleportPickupPrefab != null)
+            {
+                dropTableManager.AddItemToDropTable(teleportPickupPrefab, "Teleport", 15f);
+            }
+
+            if (fireBoltPickupPrefab != null)
+            {
+                dropTableManager.AddItemToDropTable(fireBoltPickupPrefab, "FireBolt", 15f);
+            }
+            if (iceBoltPickupPrefab != null)
+            {
+                dropTableManager.AddItemToDropTable(iceBoltPickupPrefab, "IceBolt", 15f);
+            }
+            if (lightningBoltPickupPrefab != null)
+            {
+                dropTableManager.AddItemToDropTable(lightningBoltPickupPrefab, "LightningBolt", 15f);
+            }
+        }
+        else
+        {
+            Debug.Log("Drop table already initialized, skipping initialization");
+        }
     }
 }

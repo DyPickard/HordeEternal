@@ -85,10 +85,32 @@ public class PlayerSpellManager : MonoBehaviour
         uiManager.SetUtilityPowerUp(icon);
     }
 
+    public bool HasUtilitySpell()
+    {
+        return utilitySpell != null;
+    }
+
     public void ClearUtilitySpell()
     {
         utilitySpell = null;
         uiManager.SetUtilityPowerUp(null); // this will make it transparent if sprite is null
+        if (InventoryManager.Instance != null)
+        {
+            InventoryManager.Instance.ClearSlot(InventorySlotType.Utility);
+        }
     }
 
+    public void ClearWeaponSpell()
+    {
+        if (currentSpell != null)
+        {
+            Destroy(currentSpell.gameObject);
+            currentSpell = null;
+        }
+        uiManager.SetWeaponPowerUp(null);
+        if (InventoryManager.Instance != null)
+        {
+            InventoryManager.Instance.ClearSlot(InventorySlotType.Weapon);
+        }
+    }
 }
