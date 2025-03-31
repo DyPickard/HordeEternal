@@ -100,14 +100,7 @@ public class GameManager : MonoBehaviour
             uiManager.ClearPowerUps();
             SwitchMovementAbility(currentAbilityType);
 
-            {
-                AudioManager.Instance.PlayMusic(backgroundMusic);
-            }
-        }
-
-        if (dropTableManager != null)
-        {
-            InitializeDropTable();
+            AudioManager.Instance.PlayMusic(backgroundMusic);
         }
     }
     void OnValidate()
@@ -262,7 +255,6 @@ public class GameManager : MonoBehaviour
         currentAbilityType = abilityType;
 
         MovementAbility newAbility = null;
-
         switch (currentAbilityType)
         {
             case MovementAbilityType.QuickDash:
@@ -281,40 +273,5 @@ public class GameManager : MonoBehaviour
         // Update the UI icon
         uiManager.UpdateMovementIcon(currentAbilityType);
         Debug.Log($"Movement ability switched via UI to {currentAbilityType}");
-    }
-
-    private void InitializeDropTable()
-    {
-        if (dropTableManager == null) return;
-
-        dropTableManager.ClearDropTable();
-
-        // Initialize movement ability pickups
-        if (dashPickupPrefab != null)
-            dropTableManager.AddItemToDropTable(dashPickupPrefab, "Quick Dash", 10f);
-        if (chargePickupPrefab != null)
-            dropTableManager.AddItemToDropTable(chargePickupPrefab, "Charge", 10f);
-        if (teleportPickupPrefab != null)
-            dropTableManager.AddItemToDropTable(teleportPickupPrefab, "Teleport", 10f);
-
-        // Initialize weapon spell pickups
-        if (fireBoltPickupPrefab != null)
-            dropTableManager.AddItemToDropTable(fireBoltPickupPrefab, "Fire Bolt", 10f);
-        if (iceBoltPickupPrefab != null)
-            dropTableManager.AddItemToDropTable(iceBoltPickupPrefab, "Ice Bolt", 10f);
-        if (lightningBoltPickupPrefab != null)
-            dropTableManager.AddItemToDropTable(lightningBoltPickupPrefab, "Lightning Bolt", 10f);
-
-        // Initialize utility spell pickups
-        if (spellShieldPrefab != null)
-            dropTableManager.AddItemToDropTable(spellShieldPrefab, "Spell Shield", 15f);
-        if (fireRateBoosterPickupPrefab != null)
-            dropTableManager.AddItemToDropTable(fireRateBoosterPickupPrefab, "Fire Rate Booster", 15f);
-        if (shockwavePickupPrefab != null)
-            dropTableManager.AddItemToDropTable(shockwavePickupPrefab, "Shockwave", 15f);
-
-        // Initialize heart pickup
-        if (heartPrefab != null)
-            dropTableManager.AddItemToDropTable(heartPrefab, "Heart", 20f);
     }
 }
