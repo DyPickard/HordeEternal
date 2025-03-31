@@ -4,7 +4,8 @@ public class Fire_Bolt : WeaponSpell
 {
     public PlayerLevel playerLevel;
 
-    public int baserate = 5;
+    [SerializeField] private int baseFireRate = 5;
+    public int baserate { get { return baseFireRate; } set { baseFireRate = value; } }
     public int damage = 1;
     public int size = 1;
 
@@ -15,7 +16,7 @@ public class Fire_Bolt : WeaponSpell
 
     void Update()
     {
-        int firerate = Mathf.Max(1, baserate - playerLevel.level);
+        int firerate = Mathf.Max(1, baseFireRate - playerLevel.level);
 
         timer += Time.deltaTime;
         if (timer > firerate)
@@ -24,9 +25,20 @@ public class Fire_Bolt : WeaponSpell
             Activate();
         }
     }
+
     public override void Activate()
     {
         Debug.Log("All batteries fire, fire!");
         Instantiate(proj, firePosition.position, firePosition.rotation);
+    }
+
+    public int GetFireRate()
+    {
+        return baseFireRate;
+    }
+
+    public void SetFireRate(int newRate)
+    {
+        baseFireRate = Mathf.Max(1, newRate);
     }
 }

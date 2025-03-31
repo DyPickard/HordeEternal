@@ -38,9 +38,17 @@ public class PlayerSpellManager : MonoBehaviour
     void Update()
     {
         // Trigger utility spell with Spacebar
-        if (Input.GetKeyDown(KeyCode.Space) && utilitySpell != null)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            utilitySpell.Activate();
+            if (utilitySpell != null)
+            {
+                Debug.Log($"Activating utility spell: {utilitySpell.GetType().Name}");
+                utilitySpell.Activate();
+            }
+            else
+            {
+                Debug.Log("No utility spell equipped!");
+            }
         }
     }
 
@@ -73,14 +81,20 @@ public class PlayerSpellManager : MonoBehaviour
 
     public void EquipUtilitySpell(Sprite icon, System.Type spellType)
     {
+        Debug.Log($"Equipping utility spell: {spellType.Name}");
+
         if (utilitySpell != null)
+        {
+            Debug.Log("Destroying old utility spell");
             Destroy(utilitySpell.gameObject);
+        }
 
         GameObject newSpellGO = new GameObject("EquippedUtilitySpell");
         newSpellGO.transform.parent = spellSlot;
         newSpellGO.transform.localPosition = Vector3.zero;
 
         utilitySpell = (UtilitySpell)newSpellGO.AddComponent(spellType);
+        Debug.Log($"Successfully equipped {spellType.Name}");
 
         uiManager.SetUtilityPowerUp(icon);
     }
