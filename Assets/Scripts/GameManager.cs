@@ -15,6 +15,10 @@ public class GameManager : MonoBehaviour
     public GameObject heartPrefab;
     public GameObject spellShieldPrefab;
 
+    public GameObject dashPickupPrefab;
+    public GameObject chargePickupPrefab;
+    public GameObject teleportPickupPrefab;
+
     public PlayerLevel playerLevel;
     private const int maxLives = 6;
     [SerializeField] private int currentLives = 3;
@@ -286,6 +290,19 @@ public class GameManager : MonoBehaviour
             else
             {
                 Debug.LogError("SpellShield prefab not assigned in GameManager!");
+            }
+
+            if (dashPickupPrefab != null)
+            {
+                dropTableManager.AddItemToDropTable(dashPickupPrefab, "QuickDash", 15f);
+            }
+            if (chargePickupPrefab != null)
+            {
+                dropTableManager.AddItemToDropTable(chargePickupPrefab, "Charge", 15f);
+            }
+            if (teleportPickupPrefab != null)
+            {
+                dropTableManager.AddItemToDropTable(teleportPickupPrefab, "Teleport", 15f);
             }
         }
         else
