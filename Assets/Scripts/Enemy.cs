@@ -3,16 +3,16 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 1f;
-    [SerializeField] private int expValue = 1;
-    [SerializeField] private int health = 1;
-    [SerializeField] private int damage = 1;
+    [SerializeField] protected float moveSpeed = 1f;
+    [SerializeField] protected int expValue = 1;
+    [SerializeField] protected int health = 1;
+    [SerializeField] protected int damage = 1;
 
-    private GameObject player;
-    private Transform playerTransform;
-    private Rigidbody2D rb;
+    protected GameObject player;
+    protected Transform playerTransform;
+    protected Rigidbody2D rb;
 
-    void Start()
+    protected virtual void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
@@ -23,7 +23,7 @@ public class Enemy : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         if (player == null) return;
 
@@ -38,7 +38,7 @@ public class Enemy : MonoBehaviour
         transform.localScale = scale;
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    protected virtual void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Enemy Triggered with: " + other.name);
         if (other.CompareTag("Player"))
@@ -57,13 +57,13 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void DestroyEnemy()
+    protected virtual void DestroyEnemy()
     {
         Destroy(gameObject);
         player.GetComponent<PlayerLevel>().IncreaseExp(expValue);
     }
 
-    private void TakeDamage(int damage)
+    protected virtual void TakeDamage(int damage)
     {
         health -= damage;
         if (health <= 0)
