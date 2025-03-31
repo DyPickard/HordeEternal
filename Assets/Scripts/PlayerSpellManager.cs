@@ -5,9 +5,13 @@ public class PlayerSpellManager : MonoBehaviour
 {
     public Transform spellSlot; // Empty GameObject where spell script will go
     private UIManager uiManager;
-    public Sprite fireBoltIcon; // Icon to display
+    public Sprite weaponSpellIcon; // Icon to display
     public Sprite utilitySpellIcon;
+
+    [Header("Fire_Bolt")]
     public GameObject fireBoltProjectilePrefab; // Drag your projectile prefab here
+    [SerializeField] private AudioClip fireballSound;
+
     public GameObject utilitySpellPrefab;
 
     private WeaponSpell currentSpell;
@@ -27,7 +31,7 @@ public class PlayerSpellManager : MonoBehaviour
         if (uiManager != null)
         {
             Debug.Log("UIManager found, equipping spell.");
-            EquipWeaponSpell(fireBoltIcon, typeof(Fire_Bolt));
+            EquipWeaponSpell(weaponSpellIcon, typeof(Fire_Bolt));
         }
         else
         {
@@ -65,6 +69,7 @@ public class PlayerSpellManager : MonoBehaviour
             fireBolt.playerLevel = GetComponent<PlayerLevel>(); // Assuming on Player
             fireBolt.firePosition = transform; // Set correct fire position
             fireBolt.proj = fireBoltProjectilePrefab;
+            fireBolt.SetFireballClip(fireballSound);
         }
 
         // Update UI

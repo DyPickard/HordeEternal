@@ -109,6 +109,7 @@ MonoBehaviour:
   health: 1
   damage: 5
   deathAnimationDuration: 1
+  impactSFX: {fileID: 8300000, guid: fee211e9ce9c29147a101919f268e8f5, type: 3}
 --- !u!61 &5229854832631420445
 BoxCollider2D:
   m_ObjectHideFlags: 0

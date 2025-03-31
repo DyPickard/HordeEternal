@@ -357,9 +357,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spellSlot: {fileID: 2515917845305072574}
-  fireBoltIcon: {fileID: 5886088462921678541, guid: 199380c6e8fae194688d7e0fe739f1e8, type: 3}
+  weaponSpellIcon: {fileID: 9182307164002925049, guid: ed100029d1840cc45b3a24a91ad7826f, type: 3}
   utilitySpellIcon: {fileID: 0}
   fireBoltProjectilePrefab: {fileID: 9046184501511880992, guid: e64416e41d4017d40a6c27a6a06c0035, type: 3}
+  fireballSound: {fileID: 8300000, guid: 316c8a3f4a3839c4a852b2e8c817cd97, type: 3}
   utilitySpellPrefab: {fileID: 0}
 --- !u!1 &5689051020855681404
 GameObject:

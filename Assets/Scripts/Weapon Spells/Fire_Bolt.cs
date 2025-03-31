@@ -3,6 +3,7 @@ using UnityEngine;
 public class Fire_Bolt : WeaponSpell
 {
     public PlayerLevel playerLevel;
+    [SerializeField] private AudioClip fireball;
 
     public int baserate = 5;
     public int damage = 1;
@@ -24,9 +25,16 @@ public class Fire_Bolt : WeaponSpell
             Activate();
         }
     }
+
+    public void SetFireballClip(AudioClip clip)
+    {
+        fireball = clip;
+    }
+
     public override void Activate()
     {
         Debug.Log("All batteries fire, fire!");
+        AudioManager.Instance.PlaySFX(fireball);
         Instantiate(proj, firePosition.position, firePosition.rotation);
     }
 }
