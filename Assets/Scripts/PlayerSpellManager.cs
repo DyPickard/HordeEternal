@@ -8,14 +8,11 @@ public class PlayerSpellManager : MonoBehaviour
     public Sprite weaponSpellIcon; // Icon to display
     public Sprite utilitySpellIcon;
 
-    [Header("Fire_Bolt")]
-    public GameObject fireBoltProjectilePrefab; // Drag your projectile prefab here
-    [SerializeField] private AudioClip fireballSound;
-
-    public GameObject utilitySpellPrefab;
-
     private WeaponSpell currentSpell;
     private UtilitySpell utilitySpell;
+
+    public GameObject fireBoltProjectilePrefab; // Drag your projectile prefab here
+    public GameObject utilitySpellPrefab;
 
     void Start()
     {
@@ -69,7 +66,6 @@ public class PlayerSpellManager : MonoBehaviour
             fireBolt.playerLevel = GetComponent<PlayerLevel>(); // Assuming on Player
             fireBolt.firePosition = transform; // Set correct fire position
             fireBolt.proj = fireBoltProjectilePrefab;
-            fireBolt.SetFireballClip(fireballSound);
         }
 
         // Update UI

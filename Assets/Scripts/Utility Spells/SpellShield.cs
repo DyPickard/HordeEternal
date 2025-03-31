@@ -5,6 +5,14 @@ public class ShieldSpell : UtilitySpell
     public float duration = 5f;
     private bool isActive;
     private GameObject shieldVisual;
+    [SerializeField] private AudioClip spellShieldSound;
+    private AudioClip reversed;
+
+    void Start()
+    {
+        spellShieldSound = Resources.Load<AudioClip>("Spells/SpellShield");
+        reversed = AudioManager.Instance.CreateReversedClip(spellShieldSound);
+    }
 
     public override void Activate()
     {
@@ -12,6 +20,7 @@ public class ShieldSpell : UtilitySpell
 
         Debug.Log("Shield activated!");
         isActive = true;
+        AudioManager.Instance.PlaySFX(spellShieldSound);
 
         shieldVisual = GetComponentInParent<PlayerSpellManager>().transform.Find("ShieldVisual")?.gameObject;
         if (shieldVisual != null) shieldVisual.SetActive(true);
@@ -27,8 +36,11 @@ public class ShieldSpell : UtilitySpell
         GameManager gameManager = FindObjectOfType<GameManager>();
         if (gameManager != null) gameManager.isShielded = false;
         isActive = false;
+        AudioManager.Instance.PlaySFX(reversed);
+
         GetComponentInParent<PlayerSpellManager>().ClearUtilitySpell();
         if (shieldVisual != null) shieldVisual.SetActive(false);
+
         Destroy(this.gameObject);
     }
 }
