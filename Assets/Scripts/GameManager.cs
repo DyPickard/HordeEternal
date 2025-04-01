@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
 
     public bool isInvulnerable => isTemporarilyInvulnerable || isShielded;
     private MovementAbility currentMovementAbility;
-    private MovementAbilityType currentAbilityType = MovementAbilityType.QuickDash;
+    private MovementAbilityType currentAbilityType;
 
     // Public getter for player
     public GameObject Player => player;
@@ -65,7 +65,6 @@ public class GameManager : MonoBehaviour
         uiManager = FindObjectOfType<UIManager>();
         playerLevel = FindObjectOfType<PlayerLevel>();
         dropTableManager = FindObjectOfType<DropTableManager>();
-
         if (dropTableManager == null)
         {
             Debug.LogError("DropTableManager not found in scene! Please add it to your game scene.");
@@ -217,10 +216,10 @@ public class GameManager : MonoBehaviour
         }
 
         // Check for ability swap
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            CycleMovementAbility();
-        }
+        //if (Input.GetKeyDown(KeyCode.Q))
+        //{
+        //    CycleMovementAbility();
+        //}
     }
 
     private void CycleMovementAbility()
@@ -271,7 +270,10 @@ public class GameManager : MonoBehaviour
         SetMovementAbility(newAbility);
 
         // Update the UI icon
-        uiManager.UpdateMovementIcon(currentAbilityType);
-        Debug.Log($"Movement ability switched via UI to {currentAbilityType}");
+        if (currentMovementAbility != null)
+        {
+            uiManager.UpdateMovementIcon(currentAbilityType);
+            Debug.Log($"Movement ability switched via UI to {currentAbilityType}");
+        }
     }
 }
