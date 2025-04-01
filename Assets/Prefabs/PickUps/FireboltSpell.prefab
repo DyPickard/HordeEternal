@@ -151,6 +151,7 @@ MonoBehaviour:
   icon: {fileID: 9182307164002925049, guid: ed100029d1840cc45b3a24a91ad7826f, type: 3}
   spellType: 0
   itemName: Fire Bolt
+  projectilePrefab: {fileID: 9046184501511880992, guid: e64416e41d4017d40a6c27a6a06c0035, type: 3}
 --- !u!114 &956398788090607968
 MonoBehaviour:
   m_ObjectHideFlags: 0

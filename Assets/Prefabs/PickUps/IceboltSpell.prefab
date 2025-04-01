@@ -151,6 +151,7 @@ MonoBehaviour:
   icon: {fileID: -2337028530756893839, guid: ed100029d1840cc45b3a24a91ad7826f, type: 3}
   spellType: 1
   itemName: Ice Bolt
+  projectilePrefab: {fileID: 9046184501511880992, guid: 3d046301ae66e664099af8d0b39ac697, type: 3}
 --- !u!114 &6933681225741515404
 MonoBehaviour:
   m_ObjectHideFlags: 0
