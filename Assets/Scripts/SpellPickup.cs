@@ -39,6 +39,7 @@ public class SpellPickup : MonoBehaviour
         }
         else
         {
+            manager.ClearWeaponSpell();
             manager.EquipWeaponSpell(icon, typeToEquip, projectilePrefab);
             if (InventoryManager.Instance != null)
             {

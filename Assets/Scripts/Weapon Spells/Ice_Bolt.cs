@@ -3,6 +3,7 @@ using UnityEngine;
 public class Ice_Bolt : WeaponSpell
 {
     public PlayerLevel playerLevel;
+    [SerializeField] private AudioClip iceSound;
 
     public int baserate = 3;
     public int damage = 1;
@@ -30,9 +31,15 @@ public class Ice_Bolt : WeaponSpell
         return damage * playerLevel.level;
     }
 
+    public void SetSound(AudioClip clip)
+    {
+        iceSound = clip;
+    }
+
     public override void Activate()
     {
         GameObject go = Instantiate(ice_proj, firePosition.position, firePosition.rotation);
+        AudioManager.Instance.PlaySFX(iceSound);
 
         Bolt_Behavior bolt = go.GetComponent<Bolt_Behavior>();
         if (bolt != null)
@@ -41,4 +48,3 @@ public class Ice_Bolt : WeaponSpell
         }
     }
 }
-

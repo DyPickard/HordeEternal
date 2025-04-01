@@ -20,11 +20,13 @@ public class PlayerSpellManager : MonoBehaviour
     public GameObject iceBoltProjectilePrefab;
     public GameObject utilitySpellPrefab;
 
+    [Header("Weapon Spell Sounds")]
+    public AudioClip fireballSound;
+    public AudioClip iceSound;
+    public AudioClip lightningSound;
+
     private WeaponSpell currentSpell;
     private UtilitySpell utilitySpell;
-
-    public GameObject fireBoltProjectilePrefab; // Drag your projectile prefab here
-    public GameObject utilitySpellPrefab;
 
     void Start()
     {
@@ -37,11 +39,11 @@ public class PlayerSpellManager : MonoBehaviour
 
     IEnumerator DelayedSetup()
     {
-        yield return null;
+        yield return new WaitForSeconds(0.1f);
 
         uiManager = FindObjectOfType<UIManager>();
 
-        if (uiManager != null)
+        if (uiManager != null && currentSpell == null)
         {
             Debug.Log("UIManager found. Equipping default spell.");
             EquipDefaultWeaponSpell();
@@ -76,18 +78,21 @@ public class PlayerSpellManager : MonoBehaviour
             fireBolt.playerLevel = GetComponent<PlayerLevel>();
             fireBolt.firePosition = transform;
             fireBolt.proj = projectilePrefab;
+            fireBolt.SetSound(fireballSound);
         }
         else if (currentSpell is Ice_Bolt iceBolt)
         {
             iceBolt.playerLevel = GetComponent<PlayerLevel>();
             iceBolt.firePosition = transform;
             iceBolt.ice_proj = projectilePrefab;
+            iceBolt.SetSound(iceSound);
         }
         else if (currentSpell is Lightning_Bolt lightningBolt)
         {
             lightningBolt.playerLevel = GetComponent<PlayerLevel>();
             lightningBolt.firePosition = transform;
             lightningBolt.lightning_proj = projectilePrefab;
+            lightningBolt.SetSound(lightningSound);
         }
 
         uiManager.SetWeaponPowerUp(icon);

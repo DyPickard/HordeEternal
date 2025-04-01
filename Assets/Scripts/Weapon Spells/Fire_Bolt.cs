@@ -14,11 +14,6 @@ public class Fire_Bolt : WeaponSpell
     public Transform firePosition;
     public GameObject proj;
 
-    void Start()
-    {
-        fireballSound = Resources.Load<AudioClip>("Spells/FireBall");
-    }
-
     void Update()
     {
         float firerate = Mathf.Max(1f, baserate - (1 * (playerLevel.level)));
@@ -34,6 +29,11 @@ public class Fire_Bolt : WeaponSpell
     public int GetDamage()
     {
         return damage * playerLevel.level;
+    }
+
+    public void SetSound(AudioClip clip)
+    {
+        fireballSound = clip;
     }
 
     public override void Activate()

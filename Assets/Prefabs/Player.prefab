@@ -359,9 +359,16 @@ MonoBehaviour:
   spellSlot: {fileID: 2515917845305072574}
   weaponSpellIcon: {fileID: 9182307164002925049, guid: ed100029d1840cc45b3a24a91ad7826f, type: 3}
   utilitySpellIcon: {fileID: 0}
+  defaultWeaponIcon: {fileID: 9182307164002925049, guid: ed100029d1840cc45b3a24a91ad7826f, type: 3}
+  defaultProjectilePrefab: {fileID: 9046184501511880992, guid: e64416e41d4017d40a6c27a6a06c0035, type: 3}
+  defaultSpellType: 0
   fireBoltProjectilePrefab: {fileID: 9046184501511880992, guid: e64416e41d4017d40a6c27a6a06c0035, type: 3}
-  fireballSound: {fileID: 8300000, guid: 316c8a3f4a3839c4a852b2e8c817cd97, type: 3}
+  lightningBoltProjectilePrefab: {fileID: 9046184501511880992, guid: ae7f43b6ba8d60245a34088673d90da6, type: 3}
+  iceBoltProjectilePrefab: {fileID: 9046184501511880992, guid: 3d046301ae66e664099af8d0b39ac697, type: 3}
   utilitySpellPrefab: {fileID: 0}
+  fireballSound: {fileID: 8300000, guid: 316c8a3f4a3839c4a852b2e8c817cd97, type: 3}
+  iceSound: {fileID: 8300000, guid: 1084a18f5227e2040b9753a7fb9a0c09, type: 3}
+  lightningSound: {fileID: 8300000, guid: 8318e39ae5963a64dabf7d0ff2af93de, type: 3}
 --- !u!1 &5689051020855681404
 GameObject:
   m_ObjectHideFlags: 0
