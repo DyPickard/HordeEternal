@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 9182307164002925049, guid: ed100029d1840cc45b3a24a91ad7826f, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.5235849, b: 0.68602955, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -98,10 +98,10 @@ GameObject:
   - component: {fileID: 7422424748748041031}
   - component: {fileID: 7488368788442891376}
   - component: {fileID: 9095293449118335487}
-  - component: {fileID: 8421583476160797752}
+  - component: {fileID: 7339362462615173589}
   m_Layer: 0
-  m_Name: Proj
-  m_TagString: Bullet
+  m_Name: Dragon fireball
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -138,7 +138,7 @@ CircleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -180,12 +180,12 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &8421583476160797752
+--- !u!114 &7339362462615173589
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -194,8 +194,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 9046184501511880992}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c98cc5d96ec598647be56ab19958a069, type: 3}
+  m_Script: {fileID: 11500000, guid: 694c4b10f2827ed42af6fdd986ea43b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilespd: 5
-  impactef: {fileID: 1288530134336823150, guid: c17a7c0fbcb2a924aacc199a9a028563, type: 3}
+  impactEffectPrefab: {fileID: 1288530134336823150, guid: c17a7c0fbcb2a924aacc199a9a028563, type: 3}
+  lifetime: 10

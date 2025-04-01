@@ -1,21 +1,21 @@
 using UnityEngine;
 
-public class Fire_Bolt : WeaponSpell
+public class Ice_Bolt : WeaponSpell
 {
     public PlayerLevel playerLevel;
 
-    public int baserate = 5;
-    public int damage = 2;
+    public int baserate = 3;
+    public int damage = 1;
     public int size = 1;
 
     public float timer = 0;
 
     public Transform firePosition;
-    public GameObject proj;
+    public GameObject ice_proj;
 
     void Update()
     {
-        float firerate = Mathf.Max(1f, baserate - (1 * (playerLevel.level)));
+        float firerate = Mathf.Max(0.5f, baserate - (0.5f * (playerLevel.level)));
 
         timer += Time.deltaTime;
         if (timer > firerate)
@@ -32,7 +32,7 @@ public class Fire_Bolt : WeaponSpell
 
     public override void Activate()
     {
-        GameObject go = Instantiate(proj, firePosition.position, firePosition.rotation);
+        GameObject go = Instantiate(ice_proj, firePosition.position, firePosition.rotation);
 
         Bolt_Behavior bolt = go.GetComponent<Bolt_Behavior>();
         if (bolt != null)
@@ -41,3 +41,4 @@ public class Fire_Bolt : WeaponSpell
         }
     }
 }
+

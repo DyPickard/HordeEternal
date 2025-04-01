@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4205334622129426447}
   - component: {fileID: 4940031936171190388}
   - component: {fileID: 457425431835271085}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: TeleportSpell
   m_TagString: Untagged
   m_Icon: {fileID: 0}

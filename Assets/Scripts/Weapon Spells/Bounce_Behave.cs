@@ -1,13 +1,24 @@
+using System.Net.NetworkInformation;
 using UnityEngine;
 
-public class Bolt_Behavior : MonoBehaviour
+public class Bounce_Behave : MonoBehaviour
 {
     public float projectilespd;
     public GameObject impactef;
     private Rigidbody2D rb;
+
+    public int bounces;
+    public int maxBounces = 3;
     public int damage = 1;
 
+    Enemy previoustarget = null;
+
     void Start()
+    {
+        Launch();
+    }
+
+    public void Launch()
     {
         rb = GetComponent<Rigidbody2D>();
 
@@ -24,17 +35,19 @@ public class Bolt_Behavior : MonoBehaviour
     {
         float closestDist = Mathf.Infinity;
         Enemy closest = null;
-        Enemy[] allEnemies = UnityEngine.Object.FindObjectsByType<Enemy>(FindObjectsSortMode.None);
+
+        Enemy[] allEnemies = FindObjectsOfType<Enemy>();
 
         foreach (Enemy e in allEnemies)
         {
             float dist = (e.transform.position - transform.position).sqrMagnitude;
-            if (dist < closestDist)
-            {
+            if (dist < closestDist && e != previoustarget)
+            { 
                 closestDist = dist;
                 closest = e;
             }
         }
+        previoustarget = closest;
 
         if (closest != null)
             return closest.transform.position - transform.position;
@@ -45,12 +58,22 @@ public class Bolt_Behavior : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.CompareTag("Player"))
+        if (!other.CompareTag("Player") && !other.CompareTag("HoleInGround"))
         {
             Debug.Log("Bolt hit: " + other.name);
             GameObject explosion = Instantiate(impactef, transform.position, Quaternion.identity);
             Destroy(explosion, 0.1f);
-            Destroy(gameObject);
+
+            if (bounces >= maxBounces)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                bounces++;
+                Launch();
+            }
+
         }
     }
 }
