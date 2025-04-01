@@ -136,7 +136,7 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public virtual void TakeDamage(int damage)
+    protected virtual void TakeDamage(int damage)
     {
         if (isDying) return;
 

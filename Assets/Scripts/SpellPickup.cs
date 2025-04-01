@@ -6,6 +6,7 @@ public class SpellPickup : MonoBehaviour
     public bool isUtility;
     public SpellType spellType;
     public string itemName;
+    public GameObject projectilePrefab;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -14,7 +15,7 @@ public class SpellPickup : MonoBehaviour
 
         if (isUtility && manager.HasUtilitySpell())
         {
-            Debug.Log($"Cannot pick up {itemName} - already have a utility spell equipped!");
+            Debug.Log("Cannot pick up shield - already have a utility spell equipped!");
             return;
         }
 
@@ -38,7 +39,7 @@ public class SpellPickup : MonoBehaviour
         }
         else
         {
-            manager.EquipWeaponSpell(icon, typeToEquip);
+            manager.EquipWeaponSpell(icon, typeToEquip, projectilePrefab);
             if (InventoryManager.Instance != null)
             {
                 InventoryManager.Instance.EquipItem(itemName, InventorySlotType.Weapon);
@@ -55,11 +56,11 @@ public class SpellPickup : MonoBehaviour
             case SpellType.FireBolt:
                 return typeof(Fire_Bolt);
             case SpellType.SpellShield:
-                return typeof(SpellShield);
-            case SpellType.FireRateBooster:
-                return typeof(FireRateBooster);
-            case SpellType.Shockwave:
-                return typeof(Shockwave);
+                return typeof(ShieldSpell);
+            case SpellType.LightningBolt:
+                return typeof(Lightning_Bolt);
+            case SpellType.IceBolt:
+                return typeof(Ice_Bolt);
             default:
                 Debug.LogWarning("Unknown spell type, defaulting to Fire_Bolt.");
                 return typeof(Fire_Bolt);
@@ -71,6 +72,7 @@ public enum SpellType
 {
     FireBolt,
     SpellShield,
-    FireRateBooster,
-    Shockwave
+    LightningBolt,
+    IceBolt
+    // Add more entries here as you add more spells
 }
