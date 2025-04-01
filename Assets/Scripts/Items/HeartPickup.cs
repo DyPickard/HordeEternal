@@ -16,8 +16,7 @@ public class HeartPickup : MonoBehaviour
             if (GameManager.Instance != null)
             {
                 GameManager.Instance.GetLife();
-
-
+                AudioManager.Instance.PlaySFX(pickupSound);
                 Destroy(gameObject);
             }
         }
