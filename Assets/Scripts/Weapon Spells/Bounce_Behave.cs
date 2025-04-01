@@ -15,10 +15,10 @@ public class Bounce_Behave : MonoBehaviour
 
     void Start()
     {
-        launch();
+        Launch();
     }
 
-    void launch()
+    public void Launch()
     {
         rb = GetComponent<Rigidbody2D>();
 
@@ -71,7 +71,7 @@ public class Bounce_Behave : MonoBehaviour
             else
             {
                 bounces++;
-                launch();
+                Launch();
             }
 
         }

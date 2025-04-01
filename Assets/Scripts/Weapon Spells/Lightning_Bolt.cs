@@ -36,10 +36,10 @@ public class Lightning_Bolt : WeaponSpell
     {
         GameObject go = Instantiate(lightning_proj, firePosition.position, firePosition.rotation);
 
-        Bolt_Behavior bolt = go.GetComponent<Bolt_Behavior>();
-        if (bolt != null)
+        Bounce_Behave bounce = go.GetComponent<Bounce_Behave>();
+        if (bounce != null)
         {
-            bolt.damage = GetDamage();
+            bounce.damage = GetDamage();
         }
     }
 }

@@ -12,6 +12,8 @@ public class WeaponPickup : MonoBehaviour
     public Sprite icon;
     public WeaponSpellType spellType;
     public string itemName;
+    public GameObject projectilePrefab;
+
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -24,7 +26,7 @@ public class WeaponPickup : MonoBehaviour
         System.Type weaponType = GetWeaponType();
 
         // Equip the new weapon spell
-        spellManager.EquipWeaponSpell(icon, weaponType);
+        spellManager.EquipWeaponSpell(icon, weaponType, projectilePrefab);
 
         Destroy(gameObject);
     }

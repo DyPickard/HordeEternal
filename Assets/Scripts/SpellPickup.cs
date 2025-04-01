@@ -6,6 +6,7 @@ public class SpellPickup : MonoBehaviour
     public bool isUtility;
     public SpellType spellType;
     public string itemName;
+    public GameObject projectilePrefab;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -38,7 +39,7 @@ public class SpellPickup : MonoBehaviour
         }
         else
         {
-            manager.EquipWeaponSpell(icon, typeToEquip);
+            manager.EquipWeaponSpell(icon, typeToEquip, projectilePrefab);
             if (InventoryManager.Instance != null)
             {
                 InventoryManager.Instance.EquipItem(itemName, InventorySlotType.Weapon);

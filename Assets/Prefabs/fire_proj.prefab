@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 9095293449118335487}
   - component: {fileID: 8421583476160797752}
   m_Layer: 0
-  m_Name: Proj
+  m_Name: fire_proj
   m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

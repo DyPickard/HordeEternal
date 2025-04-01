@@ -357,8 +357,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spellSlot: {fileID: 2515917845305072574}
-  fireBoltIcon: {fileID: 5886088462921678541, guid: 199380c6e8fae194688d7e0fe739f1e8, type: 3}
-  utilitySpellIcon: {fileID: 0}
+  defaultWeaponIcon: {fileID: 9182307164002925049, guid: ed100029d1840cc45b3a24a91ad7826f, type: 3}
+  defaultProjectilePrefab: {fileID: 9046184501511880992, guid: e64416e41d4017d40a6c27a6a06c0035, type: 3}
+  defaultSpellType: 0
   fireBoltProjectilePrefab: {fileID: 9046184501511880992, guid: e64416e41d4017d40a6c27a6a06c0035, type: 3}
   lightningBoltProjectilePrefab: {fileID: 9046184501511880992, guid: ae7f43b6ba8d60245a34088673d90da6, type: 3}
   iceBoltProjectilePrefab: {fileID: 9046184501511880992, guid: 3d046301ae66e664099af8d0b39ac697, type: 3}
