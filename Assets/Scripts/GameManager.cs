@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
 
     public bool isInvulnerable => isTemporarilyInvulnerable || isShielded;
     private MovementAbility currentMovementAbility;
-    private MovementAbilityType currentAbilityType = MovementAbilityType.QuickDash;
+    private MovementAbilityType currentAbilityType;
 
     // singleton pattern
     private void Awake()
@@ -54,11 +54,10 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        gameClock = UnityEngine.Object.FindAnyObjectByType<GameClock>();
-        uiManager = UnityEngine.Object.FindAnyObjectByType<UIManager>();
-        playerLevel = UnityEngine.Object.FindAnyObjectByType<PlayerLevel>();
-        dropTableManager = UnityEngine.Object.FindAnyObjectByType<DropTableManager>();
-
+        gameClock = FindObjectOfType<GameClock>();
+        uiManager = FindObjectOfType<UIManager>();
+        playerLevel = FindObjectOfType<PlayerLevel>();
+        dropTableManager = FindObjectOfType<DropTableManager>();
         if (dropTableManager == null)
         {
             Debug.LogError("DropTableManager not found in scene! Please add it to your game scene.");
@@ -230,10 +229,10 @@ private IEnumerator GameOverDelayCoroutine()
         }
 
         // Check for ability swap
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            CycleMovementAbility();
-        }
+        //if (Input.GetKeyDown(KeyCode.Q))
+        //{
+        //    CycleMovementAbility();
+        //}
     }
 
     private void CycleMovementAbility()
@@ -285,8 +284,11 @@ private IEnumerator GameOverDelayCoroutine()
         SetMovementAbility(newAbility);
 
         // Update the UI icon
-        uiManager.UpdateMovementIcon(currentAbilityType);
-        Debug.Log($"Movement ability switched via UI to {currentAbilityType}");
+        if (currentMovementAbility != null)
+        {
+            uiManager.UpdateMovementIcon(currentAbilityType);
+            Debug.Log($"Movement ability switched via UI to {currentAbilityType}");
+        }
     }
 
     private void InitializeDropTable()

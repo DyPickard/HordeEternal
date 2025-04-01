@@ -93,6 +93,17 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 0f;
         gameOverUI.SetActive(true);
     }
+    public void RestartGame()
+    {
+        AudioManager.Instance.StopMusic();
+        Time.timeScale = 1f;
+        gameUI.SetActive(false);
+        pauseUI.SetActive(false);
+        gameOverUI.SetActive(false);
+        Destroy(GameManager.Instance.gameObject);
+        SceneManager.LoadScene("TitleScreen");
+        SceneManager.LoadScene("MainLevel");
+    }
 
     public void ResumeGame()
     {
