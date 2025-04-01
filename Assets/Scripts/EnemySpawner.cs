@@ -3,6 +3,8 @@ using UnityEngine.Tilemaps;
 
 public class EnemySpawner : MonoBehaviour
 {
+    [SerializeField] private AudioClip bossMusic;
+
     [Header("Enemy Prefabs")]
     [SerializeField] private GameObject skeletonPrefab;
     [SerializeField] private GameObject ogrePrefab;
@@ -76,6 +78,8 @@ public class EnemySpawner : MonoBehaviour
         if (dragonPrefab != null)
         {
             Debug.Log("Spawning Dragon (Timed Spawn)");
+            AudioManager.Instance.StopMusic();
+            AudioManager.Instance.PlayMusic(bossMusic);
             Instantiate(dragonPrefab, spawnPos, Quaternion.identity);
         }
     }
