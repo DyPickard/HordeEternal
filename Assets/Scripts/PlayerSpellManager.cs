@@ -22,6 +22,8 @@ public class PlayerSpellManager : MonoBehaviour
 
     void Start()
     {
+        uiManager = UnityEngine.Object.FindAnyObjectByType<UIManager>();
+
         foreach (WeaponSpell spell in GetComponentsInChildren<WeaponSpell>())
         {
             Destroy(spell.gameObject);
@@ -32,8 +34,6 @@ public class PlayerSpellManager : MonoBehaviour
     IEnumerator DelayedSetup()
     {
         yield return null;
-
-        uiManager = FindObjectOfType<UIManager>();
 
         if (uiManager != null)
         {

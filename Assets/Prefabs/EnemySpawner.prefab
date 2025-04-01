@@ -47,12 +47,17 @@ MonoBehaviour:
   skeletonPrefab: {fileID: 803749037727216208, guid: ff6adb0be8540c34cb4d9ce35c325da2, type: 3}
   ogrePrefab: {fileID: 803749037727216208, guid: a3810038c559674408095753c933e394, type: 3}
   ghostPrefab: {fileID: 803749037727216208, guid: e3046eb3f7e73324480cc4ce25f1e508, type: 3}
+  dragonPrefab: {fileID: 803749037727216208, guid: 88e67c0950458ef48ac1af323cdd8a60, type: 3}
   player: {fileID: 0}
   mainCamera: {fileID: 0}
   spawnInterval: 2
   spawnDistanceFromCamera: 2
   groundTilemap: {fileID: 0}
   collisionTilemap: {fileID: 0}
+  dragonSpawnInterval: 120
+  enableTimedDragonSpawns: 1
   skeletonSpawnWeight: 70
   ogreSpawnWeight: 20
   ghostSpawnWeight: 10
+  dragonSpawnWeight: 0
+  gameClock: {fileID: 8554104664824064383, guid: a23f421b3a087aa48b82f1ce68e71979, type: 3}
