@@ -8,6 +8,8 @@ public class Bounce_Behave : MonoBehaviour
     private Rigidbody2D rb;
 
     public int bounces;
+    public int maxBounces = 3;
+    public int damage = 1;
 
     Enemy previoustarget = null;
 
@@ -62,15 +64,11 @@ public class Bounce_Behave : MonoBehaviour
             GameObject explosion = Instantiate(impactef, transform.position, Quaternion.identity);
             Destroy(explosion, 0.1f);
 
-            if (bounces == 0)
-            {
-                bounces++;
-            }
-            if (bounces > 5)
+            if (bounces >= maxBounces)
             {
                 Destroy(gameObject);
             }
-            if (bounces > 0)
+            else
             {
                 bounces++;
                 launch();

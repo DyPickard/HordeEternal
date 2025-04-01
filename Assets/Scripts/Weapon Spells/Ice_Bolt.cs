@@ -15,7 +15,6 @@ public class Ice_Bolt : WeaponSpell
 
     void Update()
     {
-        damage = playerLevel.level * damage;
         float firerate = Mathf.Max(0.5f, baserate - (0.5f * (playerLevel.level)));
 
         timer += Time.deltaTime;
@@ -25,10 +24,21 @@ public class Ice_Bolt : WeaponSpell
             Activate();
         }
     }
+
+    public int GetDamage()
+    {
+        return damage * playerLevel.level;
+    }
+
     public override void Activate()
     {
-        Debug.Log("All batteries fire, fire!");
-        Instantiate(ice_proj, firePosition.position, firePosition.rotation);
+        GameObject go = Instantiate(ice_proj, firePosition.position, firePosition.rotation);
+
+        Bolt_Behavior bolt = go.GetComponent<Bolt_Behavior>();
+        if (bolt != null)
+        {
+            bolt.damage = GetDamage();
+        }
     }
 }
 

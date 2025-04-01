@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Lightning_Bolt : MonoBehaviour
+public class Lightning_Bolt : WeaponSpell
 {
     public PlayerLevel playerLevel;
 
@@ -17,7 +17,6 @@ public class Lightning_Bolt : MonoBehaviour
 
     void Update()
     {
-        damage = playerLevel.level * damage;
         float firerate = Mathf.Max(2f, baserate - (2*(playerLevel.level)));
 
         timer += Time.deltaTime;
@@ -27,11 +26,21 @@ public class Lightning_Bolt : MonoBehaviour
             Activate();
         }
     }
-    public void Activate()
-    {
-        Debug.Log("All batteries fire, fire!");
-        Instantiate(lightning_proj, firePosition.position, firePosition.rotation);
 
+    public int GetDamage()
+    {
+        return damage * playerLevel.level;
+    }
+
+    public override void Activate()
+    {
+        GameObject go = Instantiate(lightning_proj, firePosition.position, firePosition.rotation);
+
+        Bolt_Behavior bolt = go.GetComponent<Bolt_Behavior>();
+        if (bolt != null)
+        {
+            bolt.damage = GetDamage();
+        }
     }
 }
 

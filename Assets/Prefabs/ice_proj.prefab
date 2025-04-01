@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5753533045443601367}
   - component: {fileID: 1886158685268289213}
   m_Layer: 0
-  m_Name: Fire_Bolt
+  m_Name: Ice_Bolt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25,13 +25,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1671524416788490921}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7422424748748041031}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!212 &1886158685268289213
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: -142015911
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 9182307164002925049, guid: ed100029d1840cc45b3a24a91ad7826f, type: 3}
+  m_Sprite: {fileID: -2337028530756893839, guid: ed100029d1840cc45b3a24a91ad7826f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -199,3 +199,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilespd: 5
   impactef: {fileID: 1288530134336823150, guid: c17a7c0fbcb2a924aacc199a9a028563, type: 3}
+  damage: 1
