@@ -3,6 +3,7 @@ using UnityEngine;
 public class Fire_Bolt : WeaponSpell
 {
     public PlayerLevel playerLevel;
+    [SerializeField] private AudioClip fireballSound;
 
     public int baserate = 5;
     public int damage = 2;
@@ -30,9 +31,15 @@ public class Fire_Bolt : WeaponSpell
         return damage * playerLevel.level;
     }
 
+    public void SetSound(AudioClip clip)
+    {
+        fireballSound = clip;
+    }
+
     public override void Activate()
     {
         GameObject go = Instantiate(proj, firePosition.position, firePosition.rotation);
+        AudioManager.Instance.PlaySFX(fireballSound);
 
         Bolt_Behavior bolt = go.GetComponent<Bolt_Behavior>();
         if (bolt != null)

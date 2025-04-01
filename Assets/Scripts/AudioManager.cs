@@ -64,4 +64,30 @@ public class AudioManager : MonoBehaviour
     {
         musicSource.volume = musicVolume;
     }
+
+    public AudioClip CreateReversedClip(AudioClip original)
+    {
+        int samples = original.samples * original.channels;
+        float[] data = new float[samples];
+        float[] reversedData = new float[samples];
+
+        original.GetData(data, 0);
+
+        // Reverse the audio sample array
+        for (int i = 0; i < samples; i++)
+        {
+            reversedData[i] = data[samples - 1 - i];
+        }
+
+        AudioClip reversedClip = AudioClip.Create(
+            original.name + "_Reversed",
+            original.samples,
+            original.channels,
+            original.frequency,
+            false
+        );
+
+        reversedClip.SetData(reversedData, 0);
+        return reversedClip;
+    }
 }

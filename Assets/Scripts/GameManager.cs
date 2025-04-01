@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     public UIManager uiManager;
     public AudioClip backgroundMusic;
     public AudioClip gameOverMusic;
+    public AudioClip takeDamage;
+    public AudioClip playerDeath;
     public GameClock gameClock; public DropTableManager dropTableManager;
     public GameObject heartPrefab;
     public GameObject spellShieldPrefab;
@@ -129,6 +131,7 @@ public class GameManager : MonoBehaviour
             return;
 
         Debug.Log("Player took damage!");
+        AudioManager.Instance.PlaySFX(takeDamage);
         currentLives--;
         FlashSpriteRed();
         uiManager.UpdateLives(currentLives);
@@ -169,9 +172,21 @@ public class GameManager : MonoBehaviour
         Debug.Log("Game Over!");
         gameClock.SendMessage("EndGame");
         AudioManager.Instance.StopMusic();
-        AudioManager.Instance.PlayMusic(gameOverMusic);
-        uiManager.GameOver();
+        AudioManager.Instance.PlaySFX(playerDeath); // play before scene unload/destroy
+
+        StartCoroutine(GameOverDelayCoroutine());
     }
+
+private IEnumerator GameOverDelayCoroutine()
+{
+    Time.timeScale = 0f; // Freeze game logic
+
+    yield return new WaitForSecondsRealtime(2f);
+
+    AudioManager.Instance.PlayMusic(gameOverMusic);
+    uiManager.GameOver();
+}
+
 
     void FlashSpriteRed()
     {

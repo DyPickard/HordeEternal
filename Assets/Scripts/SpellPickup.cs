@@ -7,6 +7,12 @@ public class SpellPickup : MonoBehaviour
     public SpellType spellType;
     public string itemName;
     public GameObject projectilePrefab;
+    public AudioClip pickupSound;
+
+    void Start()
+    {
+        pickupSound = Resources.Load<AudioClip>("Spells/Pickup");
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -34,11 +40,13 @@ public class SpellPickup : MonoBehaviour
             manager.EquipUtilitySpell(icon, typeToEquip);
             if (InventoryManager.Instance != null)
             {
+                AudioManager.Instance.PlaySFX(pickupSound);
                 InventoryManager.Instance.EquipItem(itemName, InventorySlotType.Utility);
             }
         }
         else
         {
+            manager.ClearWeaponSpell();
             manager.EquipWeaponSpell(icon, typeToEquip, projectilePrefab);
             if (InventoryManager.Instance != null)
             {

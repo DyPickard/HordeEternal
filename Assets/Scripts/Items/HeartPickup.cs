@@ -2,6 +2,13 @@ using UnityEngine;
 
 public class HeartPickup : MonoBehaviour
 {
+    public AudioClip pickupSound;
+
+    void Start()
+    {
+        pickupSound = Resources.Load<AudioClip>("Spells/GainLife");
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -9,8 +16,7 @@ public class HeartPickup : MonoBehaviour
             if (GameManager.Instance != null)
             {
                 GameManager.Instance.GetLife();
-
-
+                AudioManager.Instance.PlaySFX(pickupSound);
                 Destroy(gameObject);
             }
         }

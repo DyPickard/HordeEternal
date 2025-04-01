@@ -5,6 +5,7 @@ public class TeleportAbility : MovementAbility
 {
     [SerializeField] private float maxTeleportDistance = 5f;
     [SerializeField] private float fadeDuration = 0.2f;
+    [SerializeField] private AudioClip teleportSound;
     private bool isAiming = false;
     private Camera mainCamera;
     private SpriteRenderer spriteRenderer;
@@ -14,6 +15,7 @@ public class TeleportAbility : MovementAbility
         base.Start();
         mainCamera = Camera.main;
         spriteRenderer = player.GetComponent<SpriteRenderer>();
+        teleportSound = Resources.Load<AudioClip>("Spells/Teleport");
         if (mainCamera == null)
         {
             Debug.LogError("Main camera not found!");
@@ -73,6 +75,7 @@ public class TeleportAbility : MovementAbility
         Debug.Log($"Teleporting to: {targetPosition}");
 
         // Temporarily disable player control and make invulnerable
+        AudioManager.Instance.PlaySFX(teleportSound);
         bool wasControlEnabled = playerMovement.enabled;
         playerMovement.enabled = false;
         GameManager.Instance.SetInvulnerable(true);
@@ -91,6 +94,7 @@ public class TeleportAbility : MovementAbility
         }
 
         // Perform teleport
+        
         player.transform.position = targetPosition;
 
         // Fade in

@@ -3176,7 +3176,7 @@ MonoBehaviour:
   movementIcon: {fileID: 1436573132}
   dashSprite: {fileID: 8516551783460637771, guid: ed100029d1840cc45b3a24a91ad7826f, type: 3}
   chargeSprite: {fileID: -1301798039347047497, guid: ed100029d1840cc45b3a24a91ad7826f, type: 3}
-  teleportSprite: {fileID: 8279880695328968484, guid: ed100029d1840cc45b3a24a91ad7826f, type: 3}
+  teleportSprite: {fileID: 2400428071102851492, guid: ed100029d1840cc45b3a24a91ad7826f, type: 3}
   movementCooldownOverlay: {fileID: 1590265902}
   movementReady: {fileID: 592209805}
   levelText: {fileID: 860004904}

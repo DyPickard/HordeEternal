@@ -6,12 +6,14 @@ public class QuickDashAbility : MovementAbility
     [SerializeField] private float dashDistance = 3f;
     [SerializeField] private float dashDuration = 0.2f;
     [SerializeField] private float afterImageSpawnInterval = 0.02f;
+    [SerializeField] private AudioClip dashSound;
     private bool isDashing = false;
     private SpriteRenderer playerSprite;
 
     protected override void Start()
     {
         base.Start();
+        dashSound = Resources.Load<AudioClip>("Spells/Whoosh");
         playerSprite = GetComponent<SpriteRenderer>();
         if (playerSprite == null)
         {
@@ -51,6 +53,7 @@ public class QuickDashAbility : MovementAbility
     {
         Debug.Log("Quick dashing in direction: " + direction);
         isDashing = true;
+        AudioManager.Instance.PlaySFX(dashSound);
 
         float startTime = Time.time;
         Vector2 startPosition = player.transform.position;

@@ -13,7 +13,12 @@ public class WeaponPickup : MonoBehaviour
     public WeaponSpellType spellType;
     public string itemName;
     public GameObject projectilePrefab;
+    public AudioClip pickupSound;
 
+    void Start()
+    {
+        pickupSound = Resources.Load<AudioClip>("Spells/Pickup");
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -27,6 +32,7 @@ public class WeaponPickup : MonoBehaviour
 
         // Equip the new weapon spell
         spellManager.EquipWeaponSpell(icon, weaponType, projectilePrefab);
+        AudioManager.Instance.PlaySFX(pickupSound);
 
         Destroy(gameObject);
     }
@@ -37,10 +43,10 @@ public class WeaponPickup : MonoBehaviour
         {
             case WeaponSpellType.FireBolt:
                 return typeof(Fire_Bolt);
-            //case WeaponSpellType.IceBolt:
-            //    return typeof(Ice_Bolt);
-            //case WeaponSpellType.LightningBolt:
-            //    return typeof(Lightning_Bolt);
+            case WeaponSpellType.IceBolt:
+               return typeof(Ice_Bolt);
+            case WeaponSpellType.LightningBolt:
+               return typeof(Lightning_Bolt);
             default:
                 Debug.LogWarning("Only FireBolt is currently implemented, defaulting to Fire_Bolt");
                 return typeof(Fire_Bolt);

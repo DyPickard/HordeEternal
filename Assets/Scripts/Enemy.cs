@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected int health = 1;
     [SerializeField] protected int damage = 1;
     [SerializeField] protected float deathAnimationDuration = 0.5f;
+    [SerializeField] protected AudioClip impactSFX;
 
     protected GameObject player;
     protected Transform playerTransform;
@@ -63,6 +64,7 @@ public class Enemy : MonoBehaviour
 
         if (other.CompareTag("Bullet"))
         {
+            AudioManager.Instance.PlaySFX(impactSFX);
             var bolt = other.GetComponent<Bolt_Behavior>();
             if (bolt != null)
             {
