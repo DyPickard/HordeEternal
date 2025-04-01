@@ -6,12 +6,14 @@ public class ChargeAbility : MovementAbility
     [SerializeField] private float speedMultiplier = 1.25f; // 25% speed increase
     [SerializeField] private float chargeDuration = 3f;
     [SerializeField] private float particleEmissionRate = 30f;
+    [SerializeField] private AudioClip chargeSound;
     private bool isCharging = false;
     private ParticleSystem dustParticles;
 
     protected override void Start()
     {
         base.Start();
+        chargeSound = Resources.Load<AudioClip>("Spells/Running");
         cooldown = 10f;
         CreateDustParticleSystem();
     }
@@ -88,6 +90,7 @@ public class ChargeAbility : MovementAbility
     {
         Debug.Log("Starting charge boost!");
         isCharging = true;
+        AudioManager.Instance.PlaySFX(chargeSound);
 
         float originalSpeed = playerMovement.speed;
         playerMovement.speed *= speedMultiplier; // Multiply by 1.25 for 25% increase
