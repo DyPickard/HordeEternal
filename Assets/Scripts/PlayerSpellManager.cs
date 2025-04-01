@@ -3,10 +3,22 @@ using System.Collections;
 
 public class PlayerSpellManager : MonoBehaviour
 {
-    public Transform spellSlot; // Empty GameObject where spell script will go
+    public Transform spellSlot;
     private UIManager uiManager;
+
     public Sprite weaponSpellIcon; // Icon to display
     public Sprite utilitySpellIcon;
+
+    [Header("Default Weapon Spell")]
+    public Sprite defaultWeaponIcon;
+    public GameObject defaultProjectilePrefab;
+    public SpellType defaultSpellType = SpellType.FireBolt;
+
+    [Header("Projectile Prefabs")]
+    public GameObject fireBoltProjectilePrefab;
+    public GameObject lightningBoltProjectilePrefab;
+    public GameObject iceBoltProjectilePrefab;
+    public GameObject utilitySpellPrefab;
 
     private WeaponSpell currentSpell;
     private UtilitySpell utilitySpell;
@@ -16,10 +28,14 @@ public class PlayerSpellManager : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(DelayedEquip());
+        foreach (WeaponSpell spell in GetComponentsInChildren<WeaponSpell>())
+        {
+            Destroy(spell.gameObject);
+        }
+        StartCoroutine(DelayedSetup());
     }
 
-    IEnumerator DelayedEquip()
+    IEnumerator DelayedSetup()
     {
         yield return null;
 
@@ -27,8 +43,8 @@ public class PlayerSpellManager : MonoBehaviour
 
         if (uiManager != null)
         {
-            Debug.Log("UIManager found, equipping spell.");
-            EquipWeaponSpell(weaponSpellIcon, typeof(Fire_Bolt));
+            Debug.Log("UIManager found. Equipping default spell.");
+            EquipDefaultWeaponSpell();
         }
         else
         {
@@ -38,63 +54,64 @@ public class PlayerSpellManager : MonoBehaviour
 
     void Update()
     {
-        // Trigger utility spell with Spacebar
         if (Input.GetKeyDown(KeyCode.Space) && utilitySpell != null)
         {
             utilitySpell.Activate();
         }
     }
 
-    public void EquipWeaponSpell(Sprite icon, System.Type spellType)
+    public void EquipWeaponSpell(Sprite icon, System.Type spellType, GameObject projectilePrefab)
     {
-        // Remove old spell
         if (currentSpell != null)
         {
             Destroy(currentSpell.gameObject);
         }
 
-        // Add new spell
         GameObject newSpellGO = new GameObject("EquippedWeaponSpell");
-        newSpellGO.transform.parent = spellSlot;
-        newSpellGO.transform.localPosition = Vector3.zero;
-
+        newSpellGO.transform.SetParent(spellSlot, false);
         currentSpell = (WeaponSpell)newSpellGO.AddComponent(spellType);
 
-        // Optional: if the spell needs setup like `playerLevel`, assign it here
         if (currentSpell is Fire_Bolt fireBolt)
         {
-            fireBolt.playerLevel = GetComponent<PlayerLevel>(); // Assuming on Player
-            fireBolt.firePosition = transform; // Set correct fire position
-            fireBolt.proj = fireBoltProjectilePrefab;
+            fireBolt.playerLevel = GetComponent<PlayerLevel>();
+            fireBolt.firePosition = transform;
+            fireBolt.proj = projectilePrefab;
+        }
+        else if (currentSpell is Ice_Bolt iceBolt)
+        {
+            iceBolt.playerLevel = GetComponent<PlayerLevel>();
+            iceBolt.firePosition = transform;
+            iceBolt.ice_proj = projectilePrefab;
+        }
+        else if (currentSpell is Lightning_Bolt lightningBolt)
+        {
+            lightningBolt.playerLevel = GetComponent<PlayerLevel>();
+            lightningBolt.firePosition = transform;
+            lightningBolt.lightning_proj = projectilePrefab;
         }
 
-        // Update UI
         uiManager.SetWeaponPowerUp(icon);
     }
 
     public void EquipUtilitySpell(Sprite icon, System.Type spellType)
     {
         if (utilitySpell != null)
+        {
             Destroy(utilitySpell.gameObject);
+        }
 
         GameObject newSpellGO = new GameObject("EquippedUtilitySpell");
-        newSpellGO.transform.parent = spellSlot;
-        newSpellGO.transform.localPosition = Vector3.zero;
-
+        newSpellGO.transform.SetParent(spellSlot, false);
         utilitySpell = (UtilitySpell)newSpellGO.AddComponent(spellType);
 
         uiManager.SetUtilityPowerUp(icon);
     }
 
-    public bool HasUtilitySpell()
-    {
-        return utilitySpell != null;
-    }
-
     public void ClearUtilitySpell()
     {
         utilitySpell = null;
-        uiManager.SetUtilityPowerUp(null); // this will make it transparent if sprite is null
+        uiManager.SetUtilityPowerUp(null);
+
         if (InventoryManager.Instance != null)
         {
             InventoryManager.Instance.ClearSlot(InventorySlotType.Utility);
@@ -108,10 +125,51 @@ public class PlayerSpellManager : MonoBehaviour
             Destroy(currentSpell.gameObject);
             currentSpell = null;
         }
+
         uiManager.SetWeaponPowerUp(null);
+
         if (InventoryManager.Instance != null)
         {
             InventoryManager.Instance.ClearSlot(InventorySlotType.Weapon);
+        }
+    }
+
+    public bool HasUtilitySpell()
+    {
+        return utilitySpell != null;
+    }
+
+    private void EquipDefaultWeaponSpell()
+    {
+        System.Type spellType = GetSpellClass(defaultSpellType);
+        GameObject proj = GetProjectileForType(defaultSpellType);
+
+        EquipWeaponSpell(defaultWeaponIcon, spellType, proj);
+    }
+
+    private System.Type GetSpellClass(SpellType type)
+    {
+        switch (type)
+        {
+            case SpellType.FireBolt: return typeof(Fire_Bolt);
+            case SpellType.IceBolt: return typeof(Ice_Bolt);
+            case SpellType.LightningBolt: return typeof(Lightning_Bolt);
+            default:
+                Debug.LogWarning("Unknown spell type. Defaulting to Fire_Bolt.");
+                return typeof(Fire_Bolt);
+        }
+    }
+
+    private GameObject GetProjectileForType(SpellType type)
+    {
+        switch (type)
+        {
+            case SpellType.FireBolt: return fireBoltProjectilePrefab;
+            case SpellType.IceBolt: return iceBoltProjectilePrefab;
+            case SpellType.LightningBolt: return lightningBoltProjectilePrefab;
+            default:
+                Debug.LogWarning("Unknown projectile type. Defaulting to FireBolt prefab.");
+                return fireBoltProjectilePrefab;
         }
     }
 }

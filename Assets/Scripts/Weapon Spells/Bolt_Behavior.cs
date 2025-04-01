@@ -4,8 +4,8 @@ public class Bolt_Behavior : MonoBehaviour
 {
     public float projectilespd;
     public GameObject impactef;
-
     private Rigidbody2D rb;
+    public int damage = 1;
 
     void Start()
     {

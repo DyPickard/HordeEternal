@@ -65,7 +65,23 @@ public class Enemy : MonoBehaviour
         if (other.CompareTag("Bullet"))
         {
             AudioManager.Instance.PlaySFX(impactSFX);
-            TakeDamage(1);
+            var bolt = other.GetComponent<Bolt_Behavior>();
+            if (bolt != null)
+            {
+                TakeDamage(bolt.damage);
+            }
+            else
+            {
+                var bounce = other.GetComponent<Bounce_Behave>();
+                if (bounce != null)
+                {
+                    TakeDamage(bounce.damage);
+                }
+                else
+                {
+                    TakeDamage(1); // fallback
+                }
+            }
         }
     }
 

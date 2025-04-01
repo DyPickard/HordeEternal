@@ -6,7 +6,7 @@ public class Fire_Bolt : WeaponSpell
     [SerializeField] private AudioClip fireballSound;
 
     public int baserate = 5;
-    public int damage = 1;
+    public int damage = 2;
     public int size = 1;
 
     public float timer = 0;
@@ -21,7 +21,7 @@ public class Fire_Bolt : WeaponSpell
 
     void Update()
     {
-        int firerate = Mathf.Max(1, baserate - playerLevel.level);
+        float firerate = Mathf.Max(1f, baserate - (1 * (playerLevel.level)));
 
         timer += Time.deltaTime;
         if (timer > firerate)
@@ -31,10 +31,20 @@ public class Fire_Bolt : WeaponSpell
         }
     }
 
+    public int GetDamage()
+    {
+        return damage * playerLevel.level;
+    }
+
     public override void Activate()
     {
-        Debug.Log("All batteries fire, fire!");
+        GameObject go = Instantiate(proj, firePosition.position, firePosition.rotation);
         AudioManager.Instance.PlaySFX(fireballSound);
-        Instantiate(proj, firePosition.position, firePosition.rotation);
+
+        Bolt_Behavior bolt = go.GetComponent<Bolt_Behavior>();
+        if (bolt != null)
+        {
+            bolt.damage = GetDamage();
+        }
     }
 }

@@ -151,6 +151,7 @@ MonoBehaviour:
   icon: {fileID: -6145308977061446272, guid: ed100029d1840cc45b3a24a91ad7826f, type: 3}
   spellType: 2
   itemName: Lightning Bolt
+  projectilePrefab: {fileID: 9046184501511880992, guid: ae7f43b6ba8d60245a34088673d90da6, type: 3}
 --- !u!114 &5173436728523132483
 MonoBehaviour:
   m_ObjectHideFlags: 0
