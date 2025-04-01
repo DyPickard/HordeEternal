@@ -25,7 +25,7 @@ public class ShieldSpell : UtilitySpell
         shieldVisual = GetComponentInParent<PlayerSpellManager>().transform.Find("ShieldVisual")?.gameObject;
         if (shieldVisual != null) shieldVisual.SetActive(true);
 
-        GameManager gameManager = FindObjectOfType<GameManager>();
+        GameManager gameManager = UnityEngine.Object.FindAnyObjectByType<GameManager>();
         if (gameManager != null) gameManager.isShielded = true;
 
         Invoke(nameof(Deactivate), duration);
@@ -33,7 +33,7 @@ public class ShieldSpell : UtilitySpell
 
     void Deactivate()
     {
-        GameManager gameManager = FindObjectOfType<GameManager>();
+        GameManager gameManager = UnityEngine.Object.FindAnyObjectByType<GameManager>();
         if (gameManager != null) gameManager.isShielded = false;
         isActive = false;
         AudioManager.Instance.PlaySFX(reversed);

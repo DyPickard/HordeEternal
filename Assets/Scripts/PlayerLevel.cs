@@ -12,6 +12,8 @@ public class PlayerLevel : MonoBehaviour
 
     public UnityEvent LevelUp = new UnityEvent();
 
+    private UIManager uiManager;
+
     public int Level
     {
         get => level;
@@ -45,15 +47,7 @@ public class PlayerLevel : MonoBehaviour
 
     private void Start()
     {
-        UIManager uiManager = FindObjectOfType<UIManager>();
-        if (uiManager != null)
-        {
-            InitializeUI(uiManager);
-        }
-        else
-        {
-            Debug.LogError("UIManager not found! Make sure it's in the scene.");
-        }
+        InitializeUI();
     }
 
     // Update UI when changing values in the Inspector during play mode
@@ -63,7 +57,24 @@ public class PlayerLevel : MonoBehaviour
         UpdateLevelUI();
     }
 
-    public void InitializeUI(UIManager uiManager)
+    public void InitializeUI(UIManager manager = null)
+    {
+        if (manager == null)
+        {
+            uiManager = UnityEngine.Object.FindAnyObjectByType<UIManager>();
+        }
+        else
+        {
+            uiManager = manager;
+        }
+
+        if (uiManager != null)
+        {
+            UpdateUI();
+        }
+    }
+
+    private void UpdateUI()
     {
         levelText = uiManager.levelText;
         expBar = uiManager.expBar;

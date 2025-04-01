@@ -24,7 +24,7 @@ public class Bolt_Behavior : MonoBehaviour
     {
         float closestDist = Mathf.Infinity;
         Enemy closest = null;
-        Enemy[] allEnemies = FindObjectsOfType<Enemy>();
+        Enemy[] allEnemies = UnityEngine.Object.FindObjectsByType<Enemy>(FindObjectsSortMode.None);
 
         foreach (Enemy e in allEnemies)
         {
