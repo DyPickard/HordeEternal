@@ -13,7 +13,12 @@ public class WeaponPickup : MonoBehaviour
     public WeaponSpellType spellType;
     public string itemName;
     public GameObject projectilePrefab;
+    public AudioClip pickupSound;
 
+    void Start()
+    {
+        pickupSound = Resources.Load<AudioClip>("Spells/Pickup");
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -27,6 +32,7 @@ public class WeaponPickup : MonoBehaviour
 
         // Equip the new weapon spell
         spellManager.EquipWeaponSpell(icon, weaponType, projectilePrefab);
+        AudioManager.Instance.PlaySFX(pickupSound);
 
         Destroy(gameObject);
     }

@@ -5,6 +5,12 @@ public class MovementPickup : MonoBehaviour
     public Sprite icon;
     public MovementAbilityType abilityType;
     public string itemName;
+    public AudioClip pickupSound;
+
+    void Start()
+    {
+        pickupSound = Resources.Load<AudioClip>("Spells/Pickup");
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -23,6 +29,7 @@ public class MovementPickup : MonoBehaviour
         {
             gameManager.SwitchMovementAbility(abilityType);
 
+            AudioManager.Instance.PlaySFX(pickupSound);
             MovementAbility newAbility = other.GetComponent<MovementAbility>();
             if (newAbility != null)
             {
