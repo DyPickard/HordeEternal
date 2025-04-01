@@ -63,7 +63,23 @@ public class Enemy : MonoBehaviour
 
         if (other.CompareTag("Bullet"))
         {
-            TakeDamage(1);
+            var bolt = other.GetComponent<Bolt_Behavior>();
+            if (bolt != null)
+            {
+                TakeDamage(bolt.damage);
+            }
+            else
+            {
+                var bounce = other.GetComponent<Bounce_Behave>();
+                if (bounce != null)
+                {
+                    TakeDamage(bounce.damage);
+                }
+                else
+                {
+                    TakeDamage(1); // fallback
+                }
+            }
         }
     }
 
@@ -120,7 +136,7 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public virtual void TakeDamage(int damage)
+    protected virtual void TakeDamage(int damage)
     {
         if (isDying) return;
 

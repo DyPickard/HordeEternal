@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5254841525761519204}
   - component: {fileID: 6621959305678279103}
   - component: {fileID: 5430329024713551867}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: QuickDashSpell
   m_TagString: Untagged
   m_Icon: {fileID: 0}

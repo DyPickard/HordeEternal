@@ -8,18 +8,19 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7422424748748041031}
-  - component: {fileID: 7488368788442891376}
-  - component: {fileID: 9095293449118335487}
-  - component: {fileID: 8421583476160797752}
-  m_Layer: 6
+  - component: {fileID: 3683058996996657951}
+  - component: {fileID: 7304476960568354229}
+  - component: {fileID: 2139104257692530044}
+  - component: {fileID: 4161151486425101749}
+  - component: {fileID: 956398788090607968}
+  m_Layer: 0
   m_Name: FireboltSpell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7422424748748041031
+--- !u!4 &3683058996996657951
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -34,7 +35,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &7488368788442891376
+--- !u!212 &7304476960568354229
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -89,7 +90,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &9095293449118335487
+--- !u!61 &2139104257692530044
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -135,7 +136,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.25, y: 0.34}
   m_EdgeRadius: 0
---- !u!114 &8421583476160797752
+--- !u!114 &4161151486425101749
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -150,6 +151,7 @@ MonoBehaviour:
   icon: {fileID: 9182307164002925049, guid: ed100029d1840cc45b3a24a91ad7826f, type: 3}
   spellType: 0
   itemName: Fire Bolt
+  projectilePrefab: {fileID: 9046184501511880992, guid: e64416e41d4017d40a6c27a6a06c0035, type: 3}
 --- !u!114 &956398788090607968
 MonoBehaviour:
   m_ObjectHideFlags: 0

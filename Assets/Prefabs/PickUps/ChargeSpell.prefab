@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4168372754108103786}
   - component: {fileID: 4357533168286052474}
   - component: {fileID: 2433022354328045646}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: ChargeSpell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
